@@ -1,6 +1,4 @@
-{
-    "translations": [{
-        "translation": [{
+[{
             "authorName": "Swami Ramsukhdas",
             "description": "।।1.1।। धृतराष्ट्र बोले (टिप्पणी प0 1.2) - हे संजय! (टिप्पणी प0 1.3) धर्मभूमि कुरुक्षेत्र में युद्ध की इच्छा से इकट्ठे हुए मेरेे और पाण्डु के पुत्रों ने भी क्या किया?\n ",
             "verseNumber": "1",
@@ -29442,6 +29440,6 @@
             "verseNumber": "701",
             "lang": "english",
             "_type": "gita_translation"
-        }]
-    }]
-}
+        }
+    
+]

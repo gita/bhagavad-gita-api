@@ -3,14 +3,14 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
 
-# SQLALCHEMY_DATABASE_URL = "mysql+mysqldb://9LcdJsD6aq :Srw48WHA6T@remotemysql.com"
+SQLALCHEMY_DATABASE_URL = "sqlite:///foo.db"
 
-SQLALCHEMY_DATABASE_URL = "postgresql://pi:12345@192.168.18.15:5432/gita"
+# SQLALCHEMY_DATABASE_URL = "postgresql://pi:12345@192.168.18.15:5432/gita"
 
 
 engine = create_engine(
-    SQLALCHEMY_DATABASE_URL
-    # SQLALCHEMY_DATABASE_URL, connect_args={"check_same_thread": False}
+    # SQLALCHEMY_DATABASE_URL
+    SQLALCHEMY_DATABASE_URL, connect_args={"check_same_thread": False}
 )
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 

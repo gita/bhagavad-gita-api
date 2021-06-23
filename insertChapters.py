@@ -10,7 +10,7 @@ session = Session()
 # meta = MetaData()
 
 with open('data/chapters.json','r',encoding='utf8') as file:
-
+        
     
     li = []
     data = json.loads(file.read().encode('utf-8'))
