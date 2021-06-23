@@ -18,7 +18,7 @@ class gitaVerse(Base):
     commentaries = relationship('gitaCommentary',backref="gitaVerse")
 
 
-class gitChapter(Base):
+class gitaChapter(Base):
 
     __tablename__ = 'gitaChapter'
     id = Column(Integer, primary_key=True,autoincrement=True)
@@ -58,7 +58,7 @@ class gitaAuthor(Base):
 
 class gitaCommentary(Base):
     __tablename__ = "gitaCommentary"
-    id = Column(Integer, primary_key=True,auto_increment=True)
+    id = Column(Integer, primary_key=True,autoincrement=True)
     description = Column(UnicodeText)
     authorName = Column(String(200))
     lang = Column(String(200))
