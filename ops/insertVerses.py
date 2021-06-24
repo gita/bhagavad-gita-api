@@ -1,8 +1,8 @@
 import json
-from database import engine
+from api.database import engine
 from sqlalchemy import  MetaData
 from sqlalchemy.orm import  sessionmaker
-from models import gitaChapter, gitaVerse
+from api.models import gitaChapter, gitaVerse
 
 Session = sessionmaker(bind=engine)
 session = Session()     

@@ -1,15 +1,17 @@
 
-from database import engine
+from api.database import engine
 from sqlalchemy import  select
 from sqlalchemy.orm import  sessionmaker
-from models import gitaCommentary, gitaVerse, gitaAuthor, gitaLanguage
+from api.models import gitaCommentary, gitaVerse, gitaAuthor, gitaLanguage
 
 Session = sessionmaker(bind=engine)
 session = Session()     
-
+counter = 0
 commentaries = session.execute(select(gitaCommentary).order_by(gitaCommentary.id))
 for commentary_object in commentaries.scalars():
     # chapternumber = commentary_object.chapter_number
+    counter+=1
+    print(counter)
     versenumber = commentary_object.verseNumber
     verse = session.execute(select(gitaVerse).filter_by(verse_order=versenumber)).scalar_one()
 
