@@ -1,4 +1,3 @@
-
 from database import engine
 from sqlalchemy import  select
 from sqlalchemy.orm import  sessionmaker

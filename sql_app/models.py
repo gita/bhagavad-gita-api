@@ -1,7 +1,7 @@
 from sqlalchemy import Boolean, Column, ForeignKey, Integer, String
 from sqlalchemy.orm import  relationship
 from sqlalchemy.types import  UnicodeText
-from database import Base
+from .database import Base
 
 
 class gitaVerse(Base):
@@ -30,7 +30,7 @@ class gitaChapter(Base):
     name_meaning  = Column(UnicodeText)
     image_name = Column(String)
     chapter_summary = Column(UnicodeText)
-    verse = relationship("gitaVerse",backref="gitaChapter")
+    verses = relationship("gitaVerse",backref="gitaChapter")
 
 
 class gitaTranslation(Base):
@@ -58,7 +58,7 @@ class gitaAuthor(Base):
 
 class gitaCommentary(Base):
     __tablename__ = "gitaCommentary"
-    id = Column(Integer, primary_key=True,autoincrement=True)
+    id = Column(Integer, primary_key=True,auto_increment=True)
     description = Column(UnicodeText)
     authorName = Column(String(200))
     lang = Column(String(200))
