@@ -2,7 +2,9 @@ from typing import List, Optional
 from pydantic import BaseModel
 
 
-class gitaTranslationBase(BaseModel):
+
+
+class gitaTranslation(BaseModel):
     id: int
     description: str
     authorName: str
@@ -14,7 +16,7 @@ class gitaTranslationBase(BaseModel):
     class Config:
         orm_mode = True
 
-class gitaCommentaryBase(BaseModel):
+class gitaCommentary(BaseModel):
     id: int
     description: str
     authorName: str
@@ -26,7 +28,7 @@ class gitaCommentaryBase(BaseModel):
     class Config:
         orm_mode = True
 
-class gitaVerseBase(BaseModel):
+class gitaVerse(BaseModel):
     id: int
     externalId: int
     title: str
@@ -35,12 +37,12 @@ class gitaVerseBase(BaseModel):
     chapter_number: int
     text: str
     chapter_id: int
-    translations: List[gitaTranslationBase] = []
-    commentaries: List[gitaCommentaryBase] = []
+    translations: List[gitaTranslation] = []
+    commentaries: List[gitaCommentary] = []
     class Config:
         orm_mode = True
 
-class gitaChapterBase(BaseModel):
+class gitaChapter(BaseModel):
     id: int
     name: str
     name_transliterated: str
@@ -50,17 +52,8 @@ class gitaChapterBase(BaseModel):
     name_meaning: str
     image_name: str
     chapter_summary: str
-    verses: List[gitaVerseBase] = []
     class Config:
         orm_mode = True
- 
-class gitaAuthorBase(BaseModel):
-    id: int
-    name: str
-    # translations: List[gitaTranslationBase] = []
-    # commentaries: List[gitaCommentaryBase] = []
-    class Config:
-        orm_mode = True   
 
 
     
