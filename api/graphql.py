@@ -21,7 +21,7 @@ class Query(graphene.ObjectType):
     def resolve_chapters(parent, info,**kwargs):
         
         if 'chapterNumber' in kwargs.keys():
-            query = gitaChapterModel.get_query(info).filter(gitaChapter.ChapterNumber==kwargs.get('chapterNumber'))  # SQLAlchemy query
+            query = gitaChapterModel.get_query(info).filter(gitaChapter.id==kwargs.get('chapterNumber'))  # SQLAlchemy query
         if 'limit' in kwargs.keys():
             query = gitaChapterModel.get_query(info).limit(kwargs.get('limit'))
         else:
