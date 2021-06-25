@@ -7,6 +7,11 @@ from database import db_session
 
 db = db_session.session_factory()
 
+
+
+        
+
+
 class Query(graphene.ObjectType):
     chapters = graphene.List(
         models.gitaChapterModel,
@@ -22,12 +27,13 @@ class Query(graphene.ObjectType):
     def resolve_chapters(parent, info,**kwargs):
         
         if 'chapterNumber' in kwargs.keys():
-            query = models.gitaChapterModel.get_query(info).filter(models.gitaChapter.id==kwargs.get('chapterNumber'))  # SQLAlchemy query
-        if 'limit' in kwargs.keys():
+            query = models.gitaChapterModel.get_query(info).filter(models.gitaChapter.chapter_number==kwargs.get('chapterNumber'))  # SQLAlchemy query
+        elif 'limit' in kwargs.keys():
             query = models.gitaChapterModel.get_query(info).limit(kwargs.get('limit'))
         else:
+            
             query = models.gitaChapterModel.get_query(info)  # SQLAlchemy query
-
+            
         return query.all()
 
     @staticmethod
@@ -35,10 +41,13 @@ class Query(graphene.ObjectType):
         
         if 'verseNumber' in kwargs.keys():
             query = models.gitaVerseModel.get_query(info).filter(models.gitaVerse.id == kwargs.get('verseNumber'))
-        if 'limit' in kwargs.keys():
+        elif 'limit' in kwargs.keys():
             query = models.gitaVerseModel.get_query(info).limit(kwargs.get('limit'))
         else:
             query = models.gitaVerseModel.get_query(info)
         return query.all()
+
+
+        
 app = FastAPI()
 app.add_route("/graphql", GraphQLApp(schema=graphene.Schema(query=Query)))

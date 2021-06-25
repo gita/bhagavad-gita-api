@@ -4,7 +4,7 @@ from sqlalchemy.types import  UnicodeText
 from database import Base
 from graphene_sqlalchemy import SQLAlchemyObjectType
 from graphene_sqlalchemy_filter import FilterableConnectionField, FilterSet
-
+import graphene
 class gitaCommentary(Base):
     __tablename__ = "gitaCommentary"
     id = Column(Integer, primary_key=True,autoincrement=True)
@@ -82,26 +82,99 @@ class gitaChapter(Base):
 
 
 #graphql
-
-
-class gitaChapterModel(SQLAlchemyObjectType):
-    class Meta:
-        model = gitaChapter
-
-
 class gitaVerseModel(SQLAlchemyObjectType):
     class Meta:
         model = gitaVerse
 
+
 class gitaTranslationModel(SQLAlchemyObjectType):
     class Meta:
         model = gitaTranslation
-        filter_fields = {
-            'authorName':['exact','icontains'],
-        }
+        
 
 
 class gitaCommentryModel(SQLAlchemyObjectType):
     class Meta:
         model = gitaCommentary
+
+
+
+class nestedVersesModel(SQLAlchemyObjectType):
+
+    translations = graphene.List(
+        gitaTranslationModel,
+        authorName = graphene.String(),
+        language = graphene.String(),
+        limit = graphene.Int()
+    )
+    commentaries = graphene.List(
+        gitaCommentryModel,
+        authorName = graphene.String(),
+        language = graphene.String(),
+        limit = graphene.Int()
+    )
+    class Meta:
+        model = gitaVerse
+        exclude_fields = ('translations','commentaries')
+
+        #filtering Pending
+    def resolve_translations(parent,info,**kwargs):
+
+       
+        if "limit" in kwargs.keys():
+            
+            query = gitaTranslationModel.get_query(info).filter(gitaTranslation.verseNumber == parent.verse_number).limit(kwargs.get('limit'))
+        elif 'authorName' in kwargs.keys():
+            query = gitaTranslationModel.get_query(info).filter(gitaTranslation.authorName == kwargs.get('authorName')).filter(gitaTranslation.verseNumber == parent.verse_number)
+        
+        elif "language" in kwargs.keys():
+            query = gitaTranslationModel.get_query(info).filter(gitaTranslation.lang == kwargs.get('language')).filter(gitaTranslation.verseNumber == parent.verse_number)
+            
+        else:
+            query = gitaTranslationModel.get_query(info).filter(gitaTranslation.verseNumber == parent.verse_number)
+
+        return query.all()
+
+    def resolve_commentaries(parent,info,**kwargs):
+
+        if "limit" in kwargs.keys():
+            
+            query = gitaCommentryModel.get_query(info).filter(gitaCommentary.verseNumber == parent.verse_number).limit(kwargs.get('limit'))
+        elif 'authorName' in kwargs.keys():
+            query = gitaCommentryModel.get_query(info).filter(gitaCommentary.authorName == kwargs.get('authorName')).filter(gitaCommentary.verseNumber == parent.verse_number)
+        
+        elif "language" in kwargs.keys():
+            query = gitaCommentryModel.get_query(info).filter(gitaCommentary.lang == kwargs.get('language')).filter(gitaCommentary.verseNumber == parent.verse_number)
+            
+        else:
+            query = gitaCommentryModel.get_query(info).filter(gitaCommentary.verseNumber == parent.verse_number)
+
+        return query.all()
+
+
+
+class gitaChapterModel(SQLAlchemyObjectType):
+
+    verses = graphene.List(
+        nestedVersesModel,
+        verseNumber = graphene.Int(),
+        limit = graphene.Int())
+    class Meta:
+        model = gitaChapter
+        exclude_fields = ('verses',)
+
+    def resolve_verses(parent,info,**kwargs):
+        
+        if "limit" in kwargs.keys():
+            query = gitaVerseModel.get_query(info).filter(gitaVerse.chapter_number == parent.chapter_number).limit(kwargs.get('limit'))
+
+        elif "verseNumber" in kwargs.keys():
+            query = gitaVerseModel.get_query(info).filter(gitaVerse.verse_number == kwargs.get('verseNumber')).filter(gitaVerse.chapter_number == parent.chapter_number)
+
+        else:
+            query = gitaVerseModel.get_query(info).filter(gitaVerse.chapter_number == parent.chapter_number)
+        return query.all()
+        
+
+
 
