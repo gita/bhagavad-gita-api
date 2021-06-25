@@ -2,8 +2,6 @@ from typing import List, Optional
 from pydantic import BaseModel
 
 
-
-
 class gitaTranslation(BaseModel):
     id: int
     description: str
@@ -54,6 +52,7 @@ class gitaChapter(BaseModel):
     chapter_summary: str
     class Config:
         orm_mode = True
+
 
 
     

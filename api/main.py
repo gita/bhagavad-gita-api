@@ -5,6 +5,9 @@ from . import  models, schemas
 from .database import SessionLocal,engine
 import uvicorn
 from typing import List
+import graphene
+from starlette.graphql import GraphQLApp
+from .graphql import Query
 
 
 models.Base.metadata.create_all(bind=engine)
@@ -13,6 +16,8 @@ app = FastAPI(
     description="The Bhagavad Gita Application Programming Interface (API) allows a web or mobile developer to use the Bhagavad Gita text in their web or mobile application(s). It is a RESTful API that follows some of the Best Practices for designing a REST API which makes it easy for developers to use and implement.",
     version="2.0",
 )
+app.add_route('/graphql', GraphQLApp(schema=graphene.Schema(query=Query)))
+
 def get_db():
     db = SessionLocal()
     try:
@@ -97,6 +102,22 @@ def get_particular_verse_from_chapter(chapter_number: int,verse_number: int, db:
 #     if author is None:
 #         raise HTTPException(status_code=404, detail="Author not found")
 #     return author
+
+
+
+
+import graphene
+from starlette.graphql import GraphQLApp
+
+
+class Query(graphene.ObjectType):
+    hello = graphene.String(name=graphene.String(default_value="stranger"))
+
+    def resolve_hello(self, info, name):
+        return "Hello " + name
+
+
+app.add_route("/graphql", GraphQLApp(schema=graphene.Schema(query=Query)))
 
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8000)
