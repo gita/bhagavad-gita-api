@@ -3,6 +3,7 @@ from sqlalchemy.orm import  relationship
 from sqlalchemy.types import  UnicodeText
 from .database import Base
 from graphene_sqlalchemy import SQLAlchemyObjectType
+from graphene_sqlalchemy_filter import FilterableConnectionField, FilterSet
 
 class gitaCommentary(Base):
     __tablename__ = "gitaCommentary"
@@ -80,6 +81,8 @@ class gitaChapter(Base):
 
 
 
+#graphql
+
 
 class gitaChapterModel(SQLAlchemyObjectType):
     class Meta:
@@ -93,6 +96,9 @@ class gitaVerseModel(SQLAlchemyObjectType):
 class gitaTranslationModel(SQLAlchemyObjectType):
     class Meta:
         model = gitaTranslation
+        filter_fields = {
+            'authorName':['exact','icontains'],
+        }
 
 
 class gitaCommentryModel(SQLAlchemyObjectType):
