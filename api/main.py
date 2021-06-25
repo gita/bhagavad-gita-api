@@ -1,6 +1,6 @@
 from sqlalchemy import engine
 from fastapi import Depends,FastAPI,HTTPException,Request
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import Session,joinedload
 from . import  models, schemas
 from .database import SessionLocal,engine
 import uvicorn
@@ -41,26 +41,26 @@ def get_particular_chapter(chapter_number: int, db: Session = Depends(get_db)):
 
 @app.get("/gitaVerses/", response_model=List[schemas.gitaVerse], tags=["verses"])
 def get_all_verses_from_all_chapters(skip: int = 0, limit: int = 10, db: Session = Depends(get_db)):
-    verses =db.query(models.gitaVerse).offset(skip).limit(limit).all()
+    verses =db.query(models.gitaVerse).options(joinedload(models.gitaVerse.commentaries),joinedload(models.gitaVerse.translations)).offset(skip).limit(limit).all()
     return verses
 
 @app.get("/gitaVerses/{verse_id}", response_model=schemas.gitaVerse, tags=["verses"])
 def get_particular_verse(verse_id: int, db: Session = Depends(get_db)):
-    verse = db.query(models.gitaVerse).filter(models.gitaVerse.id == verse_id).first()
+    verse = db.query(models.gitaVerse).options(joinedload(models.gitaVerse.commentaries),joinedload(models.gitaVerse.translations)).filter(models.gitaVerse.id == verse_id).first()
     if verse is None:
         raise HTTPException(status_code=404, detail="Verse not found")
     return verse
 
 @app.get("/gitaChapters/{chapter_number}/gitaVerses/", response_model=List[schemas.gitaVerse], tags=["verses"])
 def get_all_verses_from_particular_chapter(chapter_number: int, db: Session = Depends(get_db)):
-    verses = db.query(models.gitaVerse).filter(models.gitaVerse.chapter_number == chapter_number).all()
+    verses = db.query(models.gitaVerse).options(joinedload(models.gitaVerse.commentaries),joinedload(models.gitaVerse.translations)).filter(models.gitaVerse.chapter_number == chapter_number).all()
     if verses is None:
         raise HTTPException(status_code=404, detail="Verse not found")
     return verses
 
 @app.get("/gitaChapters/{chapter_number}/gitaVerses/{verse_number}", response_model=schemas.gitaVerse, tags=["verses"])
 def get_particular_verse_from_chapter(chapter_number: int,verse_number: int, db: Session = Depends(get_db)):
-    verse = db.query(models.gitaVerse).filter(models.gitaVerse.chapter_number == chapter_number , models.gitaVerse.verse_number == verse_number ).first()
+    verse = db.query(models.gitaVerse).options(joinedload(models.gitaVerse.commentaries),joinedload(models.gitaVerse.translations)).filter(models.gitaVerse.chapter_number == chapter_number , models.gitaVerse.verse_number == verse_number ).first()
     if verse is None:
         raise HTTPException(status_code=404, detail="Verse not found")
     return verse
