@@ -104,20 +104,5 @@ def get_particular_verse_from_chapter(chapter_number: int,verse_number: int, db:
 #     return author
 
 
-
-
-import graphene
-from starlette.graphql import GraphQLApp
-
-
-class Query(graphene.ObjectType):
-    hello = graphene.String(name=graphene.String(default_value="stranger"))
-
-    def resolve_hello(self, info, name):
-        return "Hello " + name
-
-
-app.add_route("/graphql", GraphQLApp(schema=graphene.Schema(query=Query)))
-
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8000)
