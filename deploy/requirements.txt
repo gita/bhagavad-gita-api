@@ -1,0 +1,9 @@
+graphene_sqlalchemy==2.3.0
+uvicorn==0.14.0
+graphene==2.1.8
+pydantic==1.8.2
+SQLAlchemy==1.4.19
+starlette==0.14.2
+graphene_sqlalchemy_filter==1.12.2
+fastapi==0.65.2
+psycopg2
