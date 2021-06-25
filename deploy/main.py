@@ -53,7 +53,7 @@ def get_particular_verse(verse_id: int, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="Verse not found")
     return verse
 
-@app.get("/gitaChapters/{chapter_number}/gitaVerses/", response_model=List[schemas.gitaVerse], tags=["verses"])
+@app.get("/gitaChapters/{chapter_number}/gitaVerses/", response_model=List[schemas.gitaVerse1], tags=["verses"])
 def get_all_verses_from_particular_chapter(chapter_number: int, db: Session = Depends(get_db)):
     verses = db.query(models.gitaVerse).options(joinedload(models.gitaVerse.commentaries),joinedload(models.gitaVerse.translations)).filter(models.gitaVerse.chapter_number == chapter_number).all()
     if verses is None:

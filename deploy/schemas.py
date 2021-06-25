@@ -40,6 +40,20 @@ class gitaVerse(BaseModel):
     class Config:
         orm_mode = True
 
+class gitaVerse1(BaseModel):
+    id: int
+    externalId: int
+    title: str
+    verse_order: int
+    verse_number: int
+    chapter_number: int
+    text: str
+    chapter_id: int
+    # translations: List[gitaTranslation] = []
+    # commentaries: List[gitaCommentary] = []
+    class Config:
+        orm_mode = True
+        
 class gitaChapter(BaseModel):
     id: int
     name: str
