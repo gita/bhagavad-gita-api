@@ -22,8 +22,8 @@ class gitaLanguage(Base):
     __tablename__='gitaLanguage'
     id = Column(Integer, primary_key=True,autoincrement=True)
     language = Column(String(200))
-    commentaries = relationship('gitaCommentary',lazy="noload")
-    translations = relationship("gitaTranslation",lazy="noload")
+    commentaries = relationship('gitaCommentary',lazy="joined")
+    translations = relationship("gitaTranslation",lazy="joined")
 
 
 class gitaTranslation(Base):
@@ -61,8 +61,8 @@ class gitaVerse(Base):
     chapter_number = Column(Integer,index=True)
     text = Column(UnicodeText,index=True)
     chapter_id = Column(Integer,ForeignKey('gitaChapter.id'))
-    translations = relationship(gitaTranslation,backref="gitaVerse",lazy="noload")
-    commentaries = relationship(gitaCommentary,backref="gitaVerse",lazy="noload")
+    translations = relationship(gitaTranslation,backref="gitaVerse",lazy="joined")
+    commentaries = relationship(gitaCommentary,backref="gitaVerse",lazy="joined")
 
 
 class gitaChapter(Base):
@@ -77,7 +77,7 @@ class gitaChapter(Base):
     name_meaning  = Column(UnicodeText)
     image_name = Column(String)
     chapter_summary = Column(UnicodeText)
-    verses = relationship(gitaVerse,backref="gitaChapter",lazy="noload")
+    verses = relationship(gitaVerse,backref="gitaChapter",lazy="joined")
 
 
 
