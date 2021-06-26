@@ -4,7 +4,7 @@ from starlette.graphql import GraphQLApp
 # from models import models.gitaChapterModel,models.gitaVerseModel,models.gitaVerse,models.gitaChapter
 import models
 from database import db_session
-
+import time
 db = db_session.session_factory()
 
 
@@ -31,7 +31,8 @@ class Query(graphene.ObjectType):
 
     @staticmethod
     def resolve_chapters(parent, info,**kwargs):
-        
+        start_time = time.time()
+
         if 'chapterNumber' in kwargs.keys():
             query = models.gitaChapterModel.get_query(info).filter(models.gitaChapter.chapter_number==kwargs.get('chapterNumber'))  # SQLAlchemy query
         elif 'limit' in kwargs.keys():
@@ -45,6 +46,9 @@ class Query(graphene.ObjectType):
 
         if 'first' in kwargs.keys():
             query = query[:kwargs.get('first')]
+
+
+        print("--- %s Chapter seconds ---" % (time.time() - start_time))
 
         return query
 
