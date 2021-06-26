@@ -42,7 +42,7 @@ class Query(graphene.ObjectType):
             query = models.gitaChapterModel.get_query(info)  # SQLAlchemy query
         
         if "skip" in kwargs.keys():
-            query = query[kwargs.ger('skip'):]
+            query = query[kwargs.get('skip'):]
 
         if 'first' in kwargs.keys():
             query = query[:kwargs.get('first')]
@@ -63,7 +63,7 @@ class Query(graphene.ObjectType):
             query = models.gitaVerseModel.get_query(info)
         
         if "skip" in kwargs.keys():
-            query = query[kwargs.ger('skip'):]
+            query = query[kwargs.get('skip'):]
 
         if 'first' in kwargs.keys():
             query = query[:kwargs.get('first')]
