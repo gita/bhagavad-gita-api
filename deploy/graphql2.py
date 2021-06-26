@@ -16,11 +16,17 @@ class Query(graphene.ObjectType):
     chapters = graphene.List(
         models.gitaChapterModel,
         chapterNumber=graphene.Int(),
-        limit = graphene.Int())
+        limit = graphene.Int(),
+        first = graphene.Int(),
+        skip = graphene.Int())
+
+
     verses = graphene.List(
         models.gitaVerseModel,
         verseNumber = graphene.Int(),
-        limit = graphene.Int())
+        limit = graphene.Int(),
+        first = graphene.Int(),
+        skip = graphene.Int())
 
 
     @staticmethod
@@ -33,8 +39,14 @@ class Query(graphene.ObjectType):
         else:
             
             query = models.gitaChapterModel.get_query(info)  # SQLAlchemy query
-            
-        return query.all()
+        
+        if "skip" in kwargs.keys():
+            query = query[kwargs.ger('skip'):]
+
+        if 'first' in kwargs.keys():
+            query = query[:kwargs.get('first')]
+
+        return query
 
     @staticmethod
     def resolve_verses(parent,info,**kwargs):
@@ -45,7 +57,14 @@ class Query(graphene.ObjectType):
             query = models.gitaVerseModel.get_query(info).limit(kwargs.get('limit'))
         else:
             query = models.gitaVerseModel.get_query(info)
-        return query.all()
+        
+        if "skip" in kwargs.keys():
+            query = query[kwargs.ger('skip'):]
+
+        if 'first' in kwargs.keys():
+            query = query[:kwargs.get('first')]
+            
+        return query
 
 
         

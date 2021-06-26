@@ -105,13 +105,18 @@ class nestedVersesModel(SQLAlchemyObjectType):
         gitaTranslationModel,
         authorName = graphene.String(),
         language = graphene.String(),
-        limit = graphene.Int()
+        limit = graphene.Int(),
+        first = graphene.Int(),
+        skip = graphene.Int()
     )
     commentaries = graphene.List(
         gitaCommentryModel,
         authorName = graphene.String(),
         language = graphene.String(),
-        limit = graphene.Int()
+        limit = graphene.Int(),
+        first = graphene.Int(),
+        skip = graphene.Int()
+
     )
     class Meta:
         model = gitaVerse
@@ -133,7 +138,13 @@ class nestedVersesModel(SQLAlchemyObjectType):
         else:
             query = gitaTranslationModel.get_query(info).filter(gitaTranslation.verseNumber == parent.verse_number)
 
-        return query.all()
+        if "skip" in kwargs.keys():
+            query = query[kwargs.ger('skip'):]
+
+        if 'first' in kwargs.keys():
+            query = query[:kwargs.get('first')]
+
+        return query
 
     def resolve_commentaries(parent,info,**kwargs):
 
@@ -148,8 +159,14 @@ class nestedVersesModel(SQLAlchemyObjectType):
             
         else:
             query = gitaCommentryModel.get_query(info).filter(gitaCommentary.verseNumber == parent.verse_number)
+        
+        if "skip" in kwargs.keys():
+            query = query[kwargs.ger('skip'):]
 
-        return query.all()
+        if 'first' in kwargs.keys():
+            query = query[:kwargs.get('first')]
+
+        return query
 
 
 
@@ -158,7 +175,10 @@ class gitaChapterModel(SQLAlchemyObjectType):
     verses = graphene.List(
         nestedVersesModel,
         verseNumber = graphene.Int(),
-        limit = graphene.Int())
+        limit = graphene.Int(),
+        first = graphene.Int(),
+        skip = graphene.Int()
+        )
     class Meta:
         model = gitaChapter
         exclude_fields = ('verses',)
@@ -173,7 +193,14 @@ class gitaChapterModel(SQLAlchemyObjectType):
 
         else:
             query = gitaVerseModel.get_query(info).filter(gitaVerse.chapter_number == parent.chapter_number)
-        return query.all()
+        
+        if "skip" in kwargs.keys():
+            query = query[skip:]
+
+        if 'first' in kwargs.keys():
+            query = query[:first]
+
+        return query
         
 
 
