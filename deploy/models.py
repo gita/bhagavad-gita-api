@@ -1,10 +1,11 @@
 from sqlalchemy import Boolean, Column, ForeignKey, Integer, String
-from sqlalchemy.orm import  relationship
+from sqlalchemy.orm import  relationship,joinedload
 from sqlalchemy.types import  UnicodeText
 from database import Base
 from graphene_sqlalchemy import SQLAlchemyObjectType
 from graphene_sqlalchemy_filter import FilterableConnectionField, FilterSet
 import graphene
+import time
 class gitaCommentary(Base):
     __tablename__ = "gitaCommentary"
     id = Column(Integer, primary_key=True,autoincrement=True)
@@ -21,8 +22,8 @@ class gitaLanguage(Base):
     __tablename__='gitaLanguage'
     id = Column(Integer, primary_key=True,autoincrement=True)
     language = Column(String(200))
-    commentaries = relationship('gitaCommentary')
-    translations = relationship("gitaTranslation")
+    commentaries = relationship('gitaCommentary',lazy="joined")
+    translations = relationship("gitaTranslation",lazy="joined")
 
 
 class gitaTranslation(Base):
@@ -60,8 +61,8 @@ class gitaVerse(Base):
     chapter_number = Column(Integer,index=True)
     text = Column(UnicodeText,index=True)
     chapter_id = Column(Integer,ForeignKey('gitaChapter.id'))
-    translations = relationship(gitaTranslation,backref="gitaVerse")
-    commentaries = relationship(gitaCommentary,backref="gitaVerse")
+    translations = relationship(gitaTranslation,backref="gitaVerse",lazy="joined")
+    commentaries = relationship(gitaCommentary,backref="gitaVerse",lazy="joined")
 
 
 class gitaChapter(Base):
@@ -76,7 +77,7 @@ class gitaChapter(Base):
     name_meaning  = Column(UnicodeText)
     image_name = Column(String)
     chapter_summary = Column(UnicodeText)
-    verses = relationship(gitaVerse,backref="gitaChapter")
+    verses = relationship(gitaVerse,backref="gitaChapter",lazy="joined")
 
 
 
@@ -139,15 +140,18 @@ class nestedVersesModel(SQLAlchemyObjectType):
             query = gitaTranslationModel.get_query(info).filter(gitaTranslation.verseNumber == parent.verse_number)
 
         if "skip" in kwargs.keys():
-            query = query[kwargs.ger('skip'):]
+            query = query[kwargs.get('skip'):]
 
         if 'first' in kwargs.keys():
             query = query[:kwargs.get('first')]
 
         return query
 
-    def resolve_commentaries(parent,info,**kwargs):
 
+
+
+    def resolve_commentaries(parent,info,**kwargs):
+        start_time = time.time()
         if "limit" in kwargs.keys():
             
             query = gitaCommentryModel.get_query(info).filter(gitaCommentary.verseNumber == parent.verse_number).limit(kwargs.get('limit'))
@@ -161,11 +165,12 @@ class nestedVersesModel(SQLAlchemyObjectType):
             query = gitaCommentryModel.get_query(info).filter(gitaCommentary.verseNumber == parent.verse_number)
         
         if "skip" in kwargs.keys():
-            query = query[kwargs.ger('skip'):]
+            query = query[kwargs.get('skip'):]
 
         if 'first' in kwargs.keys():
             query = query[:kwargs.get('first')]
 
+        print("--- %s commentary seconds ---" % (time.time() - start_time))
         return query
 
 
@@ -183,7 +188,10 @@ class gitaChapterModel(SQLAlchemyObjectType):
         model = gitaChapter
         exclude_fields = ('verses',)
 
+
+
     def resolve_verses(parent,info,**kwargs):
+        start_time = time.time()
         
         if "limit" in kwargs.keys():
             query = gitaVerseModel.get_query(info).filter(gitaVerse.chapter_number == parent.chapter_number).limit(kwargs.get('limit'))
@@ -199,6 +207,9 @@ class gitaChapterModel(SQLAlchemyObjectType):
 
         if 'first' in kwargs.keys():
             query = query[:first]
+
+
+        print("--- %s Verses seconds ---" % (time.time() - start_time))
 
         return query
         

@@ -68,42 +68,6 @@ def get_particular_verse_from_chapter(chapter_number: int,verse_number: int, db:
     return verse
 
 
-# @app.get("/gitaTranslations/", response_model=List[schemas.gitaTranslationBase])
-# def get_translations(skip: int = 0, limit: int = 1000, db: Session = Depends(get_db)):
-#     translations = db.query(models.gitaTranslation).offset(skip).limit(limit).all()
-#     return translations
-
-# @app.get("/gitaTranslations/{translation_id}", response_model=schemas.gitaTranslationBase)
-# def get_translation(translation_id: int, db: Session = Depends(get_db)):
-#     translation = db.query(models.gitaTranslation).filter(models.gitaTranslation.id == translation_id).first()
-#     if translation is None:
-#         raise HTTPException(status_code=404, detail="Translation not found")
-#     return translation
-
-# @app.get("/gitaCommentaries/", response_model=List[schemas.gitaCommentaryBase])
-# def get_commentaries(skip: int = 0, limit: int = 1000, db: Session = Depends(get_db)):
-#     commentaries = db.query(models.gitaCommentary).offset(skip).limit(limit).all()
-#     return commentaries
-
-# @app.get("/gitaCommentaries/{commentary_id}", response_model=schemas.gitaCommentaryBase)
-# def get_commentary(commentary_id: int, db: Session = Depends(get_db)):
-#     commentary = db.query(models.gitaCommentary).filter(models.gitaCommentary.id == commentary_id).first()
-#     if commentary is None:
-#         raise HTTPException(status_code=404, detail="Commentary not found")
-#     return commentary
-
-
-# @app.get("/gitaAuthors/", response_model=List[schemas.gitaAuthorBase])
-# def get_authors(skip: int = 0, limit: int = 2, db: Session = Depends(get_db)):
-#     authors = db.query(models.gitaAuthor).offset(skip).limit(limit).all()
-#     return authors
-
-# @app.get("/gitaAuthors/{author_id}", response_model=schemas.gitaAuthorBase)
-# def get_author(author_id: int, db: Session = Depends(get_db)):
-#     author = db.query(models.gitaAuthor).filter(models.gitaAuthor.id == author_id).first()
-#     if author is None:
-#         raise HTTPException(status_code=404, detail="Author not found")
-#     return author
 
 
 if __name__ == "__main__":
