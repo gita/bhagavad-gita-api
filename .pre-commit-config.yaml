@@ -34,14 +34,11 @@ repos:
       - id: black
         language_version: python3.8
 
-#  - repo: https://gitlab.com/pycqa/flake8
-#    rev: 3.9.2
-#    hooks:
-#      - id: flake8
-#        additional_dependencies: [
-#          'flake8-blind-except',
-#          'flake8-bandit',
-#          'flake8-comprehensions',
-#          'flake8-mutable',
-#          'flake8-bugbear',
-#        ]
+  - repo: local
+    hooks:
+      - id: flake8
+        name: flake8
+        types: [python]
+        language: system
+        entry: flake8 --config .flake8
+        exclude: run.py
