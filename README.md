@@ -141,9 +141,12 @@ Make sure to replace `YOUR_SQLALCHEMY_DATABASE_URI` with your own local Postgres
 ```bash
 bash data.sh
 ```
-12. cd to the app folder and run `uvicorn main:app --host 0.0.0.0 --port 8081 --reload`.
+12. `cd` into the `app` folder and run:
+```
+uvicorn main:app --host 0.0.0.0 --port 8081 --reload
+```
 13. The docs can be accessed at `http://localhost:8081/docs`.
-- Use your TESTER_API_KEY from `.env` on the docs page to test the API.
+Note: Use your TESTER_API_KEY from `.env` on the docs page to test the API.
 
 ### With Docker
 
