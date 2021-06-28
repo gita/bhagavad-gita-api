@@ -1,0 +1,27 @@
+[tool.poetry]
+name = "bhagavadgita-api"
+version = "0.1.0"
+description = ""
+authors = ["The Gita Initiative <contact@bhagavadgita.io>"]
+license = "MIT"
+
+[tool.poetry.dependencies]
+python = "^3.8"
+fastapi = "^0.65.2"
+graphene-elastic = "^0.7"
+psycopg2-pgevents = "^0.2.2"
+SQLAlchemy = "^1.4.19"
+uvicorn = "^0.14.0"
+graphene-sqlalchemy = "^2.3.0"
+graphene-sqlalchemy-filter = "^1.12.2"
+isort = "^5.9.1"
+flake8 = "^3.9.2"
+black = "^21.6b0"
+autoflake = "^1.4"
+
+[tool.poetry.dev-dependencies]
+pre-commit = "^2.13.0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
