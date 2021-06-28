@@ -25,66 +25,6 @@
 </p>
 
 
-## Project Structure
-```
-.
-├── LICENSE
-├── README.md
-├── gita.png
-├── mypy.ini
-├── poetry.lock
-├── pyproject.toml
-├── run.py
-└── src
-    ├── __init__.py
-    ├── api
-    │   ├── __init__.py
-    │   ├── api_v2
-    │   │   ├── __init__.py
-    │   │   ├── api.py
-    │   │   └── endpoints
-    │   │       ├── __init__.py
-    │   │       └── gita.py
-    │   └── deps.py
-    ├── config.py
-    ├── crud.py
-    ├── data.sh
-    ├── db
-    │   ├── __init__.py
-    │   ├── base_class.py
-    │   ├── init_db.py
-    │   └── session.py
-    ├── gita_data
-    │   ├── authors.json
-    │   ├── chapters.json
-    │   ├── commentary.json
-    │   ├── languages.json
-    │   ├── translation.json
-    │   └── verse.json
-    ├── graphql2.py
-    ├── initial_data.py
-    ├── main.py
-    ├── models
-    │   ├── __init__.py
-    │   ├── gita.py
-    │   └── user.py
-    ├── schemas
-    │   ├── __init__.py
-    │   └── gita.py
-    ├── scripts
-    │   ├── __init__.py
-    │   ├── insert_authors.py
-    │   ├── insert_chapters.py
-    │   ├── insert_commentaries.py
-    │   ├── insert_languages.py
-    │   ├── insert_reference_verse_into_chapters.py
-    │   ├── insert_references_commentaries.py
-    │   ├── insert_references_translations.py
-    │   ├── insert_translations.py
-    │   └── insert_verses.py
-    └── utils.py
-```
-
 ## Developing Locally
 
 ### Without Docker
