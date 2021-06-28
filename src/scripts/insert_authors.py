@@ -1,22 +1,20 @@
 import json
 
 from db.session import engine
-from models.gita import GitaVerse
+from models.gita import GitaAuthor
 from sqlalchemy.orm import sessionmaker
 
 Session = sessionmaker(bind=engine)
 session = Session()
 
-with open("../data/verse.json", encoding="utf8") as file:
+with open("gita_data/authors.json", encoding="utf8") as file:
     li = []
     data = json.loads(file.read().encode("utf-8"))
 
     for i in data:
         li.append(
-            GitaVerse(
-                verse_number=i.get("verse_number"),
-                chapter_number=i.get("chapter_number"),
-                text=i.get("text"),
+            GitaAuthor(
+                name=i["name"],
             )
         )
     session.add_all(li)

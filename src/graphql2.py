@@ -2,10 +2,9 @@ import time
 
 import graphene
 import models
+from app.db.session import db_session
 from fastapi import FastAPI
 from starlette.graphql import GraphQLApp
-
-from app.db.session import db_session
 
 db = db_session.session_factory()
 

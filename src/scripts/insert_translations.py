@@ -7,7 +7,7 @@ from sqlalchemy.orm import sessionmaker
 Session = sessionmaker(bind=engine)
 session = Session()
 
-with open("../data/translation.json", encoding="utf8") as file:
+with open("gita_data/translation.json", encoding="utf8") as file:
     li = []
     data = json.loads(file.read().encode("utf-8"))
 

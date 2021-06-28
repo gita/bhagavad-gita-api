@@ -1,37 +1,22 @@
+import logging
 from typing import List
 
 import models.gita as models
 import schemas.gita as schemas
-from fastapi import Depends, FastAPI, HTTPException
+from api import deps
+from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session, joinedload
 
-from app.db.session import SessionLocal, engine
+logger = logging.getLogger("api")
+logger.setLevel(logging.DEBUG)
 
-# from graphql2 import Query
-
-models.Base.metadata.create_all(bind=engine)
-app = FastAPI(
-    title="Bhagavad Gita API",
-    description="The Bhagavad Gita Application Programming Interface (API) "
-    "allows a web or mobile developer to use the Bhagavad Gita text "
-    "in their web or mobile application(s). It is a RESTful API that "
-    "follows some of the Best Practices for designing a REST API which "
-    "makes it easy for developers to use and implement.",
-    version="2.0",
-)
-# app.add_route("/graphql", GraphQLApp(schema=graphene.Schema(query=Query)))
+router = APIRouter()
 
 
-def get_db():
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
-
-
-@app.get("/chapters/", response_model=List[schemas.GitaChapter], tags=["chapters"])
-def get_all_chapters(skip: int = 0, limit: int = 18, db: Session = Depends(get_db)):
+@router.get("/chapters/", response_model=List[schemas.GitaChapter], tags=["chapters"])
+def get_all_chapters(
+    skip: int = 0, limit: int = 18, db: Session = Depends(deps.get_db)
+):
     chapters = (
         db.query(models.GitaChapter)
         .order_by(models.GitaChapter.id.asc())
@@ -42,12 +27,10 @@ def get_all_chapters(skip: int = 0, limit: int = 18, db: Session = Depends(get_d
     return chapters
 
 
-@app.get(
-    "/chapters/{chapter_number}/",
-    response_model=schemas.GitaChapter,
-    tags=["chapters"],
+@router.get(
+    "/chapters/{chapter_number}/", response_model=schemas.GitaChapter, tags=["chapters"]
 )
-def get_particular_chapter(chapter_number: int, db: Session = Depends(get_db)):
+def get_particular_chapter(chapter_number: int, db: Session = Depends(deps.get_db)):
     chapter = (
         db.query(models.GitaChapter)
         .filter(models.GitaChapter.chapter_number == chapter_number)
@@ -58,9 +41,9 @@ def get_particular_chapter(chapter_number: int, db: Session = Depends(get_db)):
     return chapter
 
 
-@app.get("/verses/", response_model=List[schemas.GitaVerse], tags=["verses"])
+@router.get("/verses/", response_model=List[schemas.GitaVerse], tags=["verses"])
 def get_all_verses_from_all_chapters(
-    skip: int = 0, limit: int = 10, db: Session = Depends(get_db)
+    skip: int = 0, limit: int = 10, db: Session = Depends(deps.get_db)
 ):
     verses = (
         db.query(models.GitaVerse)
@@ -76,13 +59,13 @@ def get_all_verses_from_all_chapters(
     return verses
 
 
-@app.get(
+@router.get(
     "/chapters/{chapter_number}/verses/",
     response_model=List[schemas.GitaVerse],
     tags=["verses"],
 )
 def get_all_verses_from_particular_chapter(
-    chapter_number: int, db: Session = Depends(get_db)
+    chapter_number: int, db: Session = Depends(deps.get_db)
 ):
     verses = (
         db.query(models.GitaVerse)
@@ -99,13 +82,13 @@ def get_all_verses_from_particular_chapter(
     return verses
 
 
-@app.get(
+@router.get(
     "/chapters/{chapter_number}/verses/{verse_number}/",
     response_model=schemas.GitaVerse,
     tags=["verses"],
 )
 def get_particular_verse_from_chapter(
-    chapter_number: int, verse_number: int, db: Session = Depends(get_db)
+    chapter_number: int, verse_number: int, db: Session = Depends(deps.get_db)
 ):
     verse = (
         db.query(models.GitaVerse)

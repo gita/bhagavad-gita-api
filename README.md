@@ -28,25 +28,66 @@
 ## Project Structure
 ```
 .
-.
 ├── LICENSE
 ├── README.md
-├── __init__.py
-├── database.py
 ├── gita.png
-├── graphql2.py
-├── main.py
-├── models.py
 ├── mypy.ini
 ├── poetry.lock
 ├── pyproject.toml
-└── schemas.py
-
+├── run.py
+└── src
+    ├── __init__.py
+    ├── api
+    │   ├── __init__.py
+    │   ├── api_v2
+    │   │   ├── __init__.py
+    │   │   ├── api.py
+    │   │   └── endpoints
+    │   │       ├── __init__.py
+    │   │       └── gita.py
+    │   └── deps.py
+    ├── config.py
+    ├── crud.py
+    ├── data.sh
+    ├── db
+    │   ├── __init__.py
+    │   ├── base_class.py
+    │   ├── init_db.py
+    │   └── session.py
+    ├── gita_data
+    │   ├── authors.json
+    │   ├── chapters.json
+    │   ├── commentary.json
+    │   ├── languages.json
+    │   ├── translation.json
+    │   └── verse.json
+    ├── graphql2.py
+    ├── initial_data.py
+    ├── main.py
+    ├── models
+    │   ├── __init__.py
+    │   ├── gita.py
+    │   └── user.py
+    ├── schemas
+    │   ├── __init__.py
+    │   └── gita.py
+    ├── scripts
+    │   ├── __init__.py
+    │   ├── insert_authors.py
+    │   ├── insert_chapters.py
+    │   ├── insert_commentaries.py
+    │   ├── insert_languages.py
+    │   ├── insert_reference_verse_into_chapters.py
+    │   ├── insert_references_commentaries.py
+    │   ├── insert_references_translations.py
+    │   ├── insert_translations.py
+    │   └── insert_verses.py
+    └── utils.py
 ```
 
 ## Developing Locally
 
-### Setup the Backend (No Docker)
+### Without Docker
 
 1. Install [pyenv](https://github.com/pyenv/pyenv).
 2. Setup Python 3.8.10 using `pyenv install 3.8.10`.
@@ -89,11 +130,22 @@ poetry run pre-commit install
 poetry shell
 ```
 
-10. Create a file called `.env` in app directory. (See Slack for creds)
-11. cd to the app folder and run `uvicorn main:app --host 0.0.0.0 --port 8081 --reload`.
-12. The docs can be accessed at `http://127.0.0.1:8081/docs`.
+10. Create a file called `.env` in app directory with the following credentials:
+```
+SQLALCHEMY_DATABASE_URI=YOUR_SQLALCHEMY_DATABASE_URI
+TESTER_API_KEY=RANDOM_STRING
+```
+Make sure to replace `YOUR_SQLALCHEMY_DATABASE_URI` with your own local Postgres database credentials.
 
-### Developing Locally (Using Docker)
+11. Initialize the database using:
+```bash
+bash data.sh
+```
+12. cd to the app folder and run `uvicorn main:app --host 0.0.0.0 --port 8081 --reload`.
+13. The docs can be accessed at `http://localhost:8081/docs`.
+
+
+### With Docker
 
 1. Fork this repository and clone the forked repository.
 2. Make sure docker and docker-compose are installed.

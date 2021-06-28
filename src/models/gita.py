@@ -1,4 +1,4 @@
-from db.session import Base
+from db.base_class import Base
 from sqlalchemy import Column, ForeignKey, Integer, String
 from sqlalchemy.orm import relationship
 from sqlalchemy.types import UnicodeText
