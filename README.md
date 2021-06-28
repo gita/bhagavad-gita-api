@@ -11,9 +11,9 @@
     <br />
     <a href="https://api.bhagavadgita.io/docs">View Docs</a>
     ·
-    <a href="https://github.com/gita/bhagavadgita-api/issues">Report Bug</a>
+    <a href="https://github.com/gita/bhagavad-gita-api/issues">Report Bug</a>
     ·
-    <a href="https://github.com/gita/bhagavadgita-api/issues">Request Feature</a>
+    <a href="https://github.com/gita/bhagavad-gita-api/issues">Request Feature</a>
   </p>
 </p>
 
