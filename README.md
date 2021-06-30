@@ -1,6 +1,7 @@
+<!-- markdownlint-disable -->
 <p align="center">
   <a href="https://bhagavadgita.io">
-    <img src="gita.png" alt="Logo" width="300">
+    <img src=".github/gita.png" alt="Logo" width="300">
   </a>
 
   <h3 align="center">Bhagavad Gita API v2</h3>
@@ -9,88 +10,105 @@
     Code for the BhagavadGita.io v2 API, which is an app built for Gita readers by Gita readers.
     <br />
     <br />
-    <a href="https://api.bhagavadgita.io/docs">View Docs</a>
-    ·
-    <a href="https://github.com/gita/bhagavad-gita-api/issues">Report Bug</a>
-    ·
-    <a href="https://github.com/gita/bhagavad-gita-api/issues">Request Feature</a>
-  </p>
-</p>
-
-<p align="center">
-  <a href="https://github.com/gita/bhagavad-gita-api/blob/master/LICENSE">
+    <img alt="GitHub issues" src="https://img.shields.io/github/issues/gita/bhagavad-gita-api">
+    <img alt="PyPI - Python Version" src="https://img.shields.io/pypi/pyversions/bhagavad-gita-api">
+      <a href="https://github.com/gita/bhagavad-gita-api/blob/master/LICENSE">
     <img alt="LICENSE" src="https://img.shields.io/badge/License-MIT-yellow.svg?maxAge=43200">
   </a>
+  <a href="https://api.bhagavadgita.io/docs"><img src="https://img.shields.io/badge/docs-passing-green" alt="Docs"></a>
   <a href="https://starcharts.herokuapp.com/gita/bhagavad-gita-api"><img alt="Stars" src="https://img.shields.io/github/stars/gita/bhagavad-gita-api.svg?style=social"></a>
 </p>
 
 
-## Developing Locally
+## Usage
 
-### Without Docker
+The Bhagavad Gita API allows any developer to use content from Gita in their apps.
+This API is built with FastAPI which is based on (and fully compatible with) the open standards for APIs: OpenAPI (previously known as Swagger) and JSON Schema.
 
-1. Install [pyenv](https://github.com/pyenv/pyenv).
-2. Setup Python 3.8.10 using `pyenv install 3.8.10`.
-3. Activate that version in the current session shell:
+Documentation for this API is availaible in two interactive formats:
+- [Swagger UI](https://api.bhagavadgita.io/docs)
+- [Redoc](https://api.bhagavadgita.io/redoc)
 
-```bash
-$ pyenv shell 3.8.10
-$ python --version
-Python 3.8.10
-```
+If you are interested in using this API for your application, you need to obtain an API Key from [bhagavadgita.io](https://bhagavadgita.io).
 
-4. Setup the Python version for the project.
+## Projects
 
-```bash
-pyenv local 3.8.10
-```
+Here is a list of interesting projects using this API.
 
-5. Install [Poetry](https://python-poetry.org/docs/#installation)
-6. Init poetry in the root of the project.
+- [bhagavadGita.io](https://bhagavadgita.io)
+- [Android App](https://play.google.com/store/apps/details?id=com.hanuman.bhagavadgita)
 
-```bash
-poetry init
-```
+Have you build something with this API ? Open a "Show and tell" discussion. The maintainers will feature your project on the README if they find it interesting.
 
-7. Install the dependencies using:
+## Self Hosting
+<!-- markdownlint-enable -->
 
-```bash
-poetry install
-```
+The official API at [api.bhagavadgita.io](https://api.bhagavadgita.io)
+is free to use for all.
+But If you wish you can self host anywhere you want.
 
-8. Install `pre-commit` hook in local repo:
+If you want to deploy your own instance,You can deploy
+the API server on your system or VPS.
 
-```bash
-poetry run pre-commit install
-```
+- Using [`pipx`](https://pypa.github.io/pipx/installation/)
+  > **Note** If you dont have `pipx`, just `pip install pipx`
 
-9. Activate Poetry virtual env using:
+    ```shell
+    pipx run bhagavad-gita-api
+    ```
 
-```bash
-poetry shell
-```
+- Or using [`docker`](https://www.docker.com/)
 
-10. Create a file called `.env` in app directory with the following credentials:
-```
-SQLALCHEMY_DATABASE_URI=YOUR_SQLALCHEMY_DATABASE_URI
-TESTER_API_KEY=RANDOM_STRING
-```
-Make sure to replace `YOUR_SQLALCHEMY_DATABASE_URI` with your own local Postgres database credentials.
+    ```shell
+    docker run -it -p 8081:8081 --env-file=.env bhagavadgita/bhagavad-gita-api
+    ```
 
-11. Initialize the database using:
-```bash
-bash data.sh
-```
-12. `cd` into the `app` folder and run:
-```
-uvicorn main:app --host 0.0.0.0 --port 8081 --reload
-```
-13. The docs can be accessed at `http://localhost:8081/docs`.
-Note: Use your TESTER_API_KEY from `.env` on the docs page to test the API.
+<!-- markdownlint-disable -->
+Now open http://localhost:8081/docs to see docs.
+To stop the server press <kbd>Ctrl</kbd> + <kbd>C</kbd> on your keyboard.
+<!-- markdownlint-enable -->
 
-### With Docker
+By default an in-memory SQLite database is used.
+But you configure to use any SQL database of your choice.
+The official version uses PostgreSQL.
 
-1. Fork this repository and clone the forked repository.
-2. Make sure docker and docker-compose are installed.
-3. Use `docker-compose -f docker-compose-dev.yml up` to install the requirements and start the development server.
-4. API can be accessed at `http://0.0.0.0:8000/docs`.
+Looking to deploy on a cloud platform ?
+We have detailed docs to deploy to the following platforms:
+
+- [Heroku](https://github.com/gita/bhagavad-gita-api/wiki/Heroku)
+- [Deta](https://github.com/gita/bhagavad-gita-api/wiki/Deta)
+- [Digital Ocean](https://github.com/gita/bhagavad-gita-api/wiki/Digial-Ocean)
+
+## Configuration
+
+Here is the list of supported environment variables.
+
+<!-- markdownlint-disable -->
+| Name                      | Description                           | Default     |
+| ------------------------- | ------------------------------------- | ----------- |
+| `TESTER_API_KEY`          | The API key for testing.              | `None`      |
+| `SQLALCHEMY_DATABASE_URI` | The DSN for your database connection. | `sqlite://` (in memory SQLite db)|
+<!-- markdownlint-enable -->
+
+If you want to configure your deployment even more,
+then please take a look at module [`config.py`](bhagavad_gita_api/config.py).
+
+To set the environment variables, you may simply use a `.env` file where you
+specify the values in the format of `KEY=VALUE`.
+
+## Development
+
+Feel free to use the [issue tracker](https://github.com/gita/bhagavad-gita-api/issues)
+for bugs and feature requests.
+
+Looking to contribute code ? PRs are most welcome!
+To get started with developing this API, please read the [contributing guide](.github/CONTRIBUTING.md).
+
+## Community
+
+Join the [Discord chat server](https://discord.gg/gX8dstApZX) and
+hang out with others in the community.
+
+You can also use [GitHub Discussions](https://github.com/gita/bhagavad-gita-api/discussions)
+to ask questions or tell us about
+projects you have built using this API.
