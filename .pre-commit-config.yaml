@@ -42,3 +42,8 @@ repos:
         language: system
         entry: flake8 --config .flake8
         exclude: run.py
+
+  - repo: https://github.com/igorshubovych/markdownlint-cli
+    rev: v0.27.1
+    hooks:
+      - id: markdownlint
