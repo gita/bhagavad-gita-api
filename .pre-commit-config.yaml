@@ -40,7 +40,7 @@ repos:
         name: flake8
         types: [python]
         language: system
-        entry: flake8 --config .flake8
+        entry: poetry run flake8 --config .flake8
         exclude: run.py
 
   - repo: https://github.com/igorshubovych/markdownlint-cli
