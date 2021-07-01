@@ -47,6 +47,10 @@ In your code editor set the python interpretor path to `./.venv/bin/python`
     uvicorn bhagavad_gita_api.main:app --host 0.0.0.0 --port 8081 --reload
     ```
 
+    By default an in memory Sqlite database is used.
+    To set the database DSN, tester API Key and other stuff, read about
+    [configuration](../README.md/#Configuration) in the README.
+
 7. Try to write test cases when you are adding a feature or fixing a bug.
 
 8. Make sure that all existing tests, and code quality checks pass.

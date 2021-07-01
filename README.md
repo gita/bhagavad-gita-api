@@ -35,7 +35,7 @@ If you are interested in using this API for your application, you need to obtain
 
 Here is a list of interesting projects using this API.
 
-- [bhagavadGita.io](https://bhagavadgita.io)
+- [BhagavadGita.io](https://bhagavadgita.io)
 - [Android App](https://play.google.com/store/apps/details?id=com.hanuman.bhagavadgita)
 
 Have you build something with this API ? Open a "Show and tell" discussion. The maintainers will feature your project on the README if they find it interesting.

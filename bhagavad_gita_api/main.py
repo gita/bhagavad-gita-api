@@ -50,11 +50,15 @@ app.include_router(api_router, prefix=settings.API_V2_STR)
 # app.add_route("/graphql", GraphQLApp(schema=graphene.Schema(query=Query)))
 
 
-def cli():
-    # this function will be called when run from cli
+@app.on_event("startup")
+def create_initial_data():
     logging.basicConfig(level=logging.INFO)
     logging.info("Creating initial data")
     db = SessionLocal()
     init_db(db)
     logging.info("Initial data created")
+
+
+def cli():
+    # this function will be called when run from cli
     uvicorn.run(app, host="0.0.0.0", port=8081)

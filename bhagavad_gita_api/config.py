@@ -1,7 +1,11 @@
 import os
 from typing import Optional
 
-from pydantic import BaseSettings, PostgresDsn
+from pydantic import AnyUrl, BaseSettings
+
+
+class SqlDsn(AnyUrl):
+    allowed_schemes = {"postgres", "postgresql", "sqlite", "mysql"}
 
 
 class Settings(BaseSettings):
@@ -17,7 +21,7 @@ class Settings(BaseSettings):
 
     API_V2_STR: str = "/v2"
 
-    SQLALCHEMY_DATABASE_URI: Optional[PostgresDsn]
+    SQLALCHEMY_DATABASE_URI: Optional[SqlDsn]
 
     TESTER_API_KEY: str
 
@@ -28,5 +32,8 @@ class Settings(BaseSettings):
 settings = Settings()
 
 if not settings.SQLALCHEMY_DATABASE_URI:
-    # use in-memory sqlite db
+    print(
+        "No SQLALCHEMY_DATABASE_URI found. \
+        \nUsing in-memory Sqlite database. This is not good for running in production!"
+    )
     settings.SQLALCHEMY_DATABASE_URI = "sqlite://"
