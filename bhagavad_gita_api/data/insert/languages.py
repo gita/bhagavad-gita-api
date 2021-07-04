@@ -20,6 +20,7 @@ for i in track(data, description="Loading languages"):
     li.append(
         GitaLanguage(
             language=i["language"],
+            id=i["id"],
         )
     )
 session.add_all(li)

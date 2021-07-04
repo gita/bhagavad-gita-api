@@ -2,7 +2,7 @@ from sqlalchemy.orm import Session
 
 from bhagavad_gita_api import crud
 from bhagavad_gita_api.config import settings
-from bhagavad_gita_api.data import insert_all, reference_all
+from bhagavad_gita_api.data import insert_all
 from bhagavad_gita_api.db.base_class import Base
 from bhagavad_gita_api.db.session import engine
 from bhagavad_gita_api.models import user
@@ -31,5 +31,5 @@ def init_db(db: Session) -> None:
     Base.metadata.create_all(engine)
     if new_db:
         insert_all()
-        reference_all()
+        # reference_all()
         # the reference scripts are very slow
