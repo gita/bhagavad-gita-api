@@ -73,6 +73,3 @@ class GitaChapter(Base):
     name_meaning = Column(UnicodeText)
     chapter_summary = Column(UnicodeText)
     verses = relationship(GitaVerse, backref="gita_chapters", lazy="joined")
-
-
-

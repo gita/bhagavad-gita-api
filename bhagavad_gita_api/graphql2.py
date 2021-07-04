@@ -5,18 +5,22 @@ from fastapi import FastAPI
 from starlette.graphql import GraphQLApp
 from graphene_sqlalchemy import SQLAlchemyObjectType, SQLAlchemyConnectionField
 from bhagavad_gita_api import models
-from bhagavad_gita_api.models.gita import GitaTranslation,GitaCommentary,GitaVerse,GitaChapter
+from bhagavad_gita_api.models.gita import (
+    GitaTranslation,
+    GitaCommentary,
+    GitaVerse,
+    GitaChapter,
+)
 
 from bhagavad_gita_api.db.session import db_session
 
 db = db_session.session_factory()
 
 
-
-
 class GitaTranslationModel(SQLAlchemyObjectType):
     class Meta:
         model = GitaTranslation
+
 
 class GitaCommentryModel(SQLAlchemyObjectType):
     class Meta:
@@ -121,9 +125,6 @@ class GitaVerseModel(SQLAlchemyObjectType):
         return query
 
 
-
-
-
 class nestedVersesModel(SQLAlchemyObjectType):
 
     translations = graphene.List(
@@ -223,13 +224,6 @@ class nestedVersesModel(SQLAlchemyObjectType):
         return query
 
 
-
-
-
-
-
-
-
 class GitaChapterModel(SQLAlchemyObjectType):
 
     verses = graphene.List(
@@ -275,6 +269,7 @@ class GitaChapterModel(SQLAlchemyObjectType):
         print("--- %s Verses seconds ---" % (time.time() - start_time))
 
         return query
+
 
 class Query(graphene.ObjectType):
     chapters = graphene.List(
@@ -336,5 +331,3 @@ class Query(graphene.ObjectType):
             query = query[: kwargs.get("first")]
 
         return query
-
-

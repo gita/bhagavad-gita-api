@@ -108,5 +108,4 @@ def get_particular_verse_from_chapter(
     return verse
 
 
-
 # @router.get("/graphql")
