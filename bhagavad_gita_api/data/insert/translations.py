@@ -23,6 +23,8 @@ for i in track(data, description="Loading translations"):
             author_name=i.get("authorName"),
             language=i.get("lang"),
             verse_id=i.get("verseNumber"),
+            author_id=i.get("author_id"),
+            language_id=i.get("language_id"),
         )
     )
 session.add_all(li)

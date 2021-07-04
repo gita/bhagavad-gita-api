@@ -20,6 +20,7 @@ for i in track(data, description="Loading authors"):
     li.append(
         GitaAuthor(
             name=i["name"],
+            id=i["id"],
         )
     )
 session.add_all(li)
