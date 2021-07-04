@@ -261,10 +261,10 @@ class GitaChapterModel(SQLAlchemyObjectType):
             )
 
         if "skip" in kwargs.keys():
-            query = query[skip:]
+            query = query[kwargs.get('skip'):]
 
         if "first" in kwargs.keys():
-            query = query[:first]
+            query = query[:kwargs.get('first')]
 
         print("--- %s Verses seconds ---" % (time.time() - start_time))
 
