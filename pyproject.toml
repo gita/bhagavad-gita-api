@@ -30,6 +30,7 @@ graphene-sqlalchemy-filter = "^1.12.2"
 python-dotenv = "^0.18.0"
 pytz = "^2021.1"
 rich = "^10.4.0"
+graphene = "^2.1.8"
 
 [tool.poetry.dev-dependencies]
 pre-commit = "^2.13.0"

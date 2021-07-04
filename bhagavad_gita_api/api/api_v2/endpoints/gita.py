@@ -106,3 +106,7 @@ def get_particular_verse_from_chapter(
     if verse is None:
         raise HTTPException(status_code=404, detail="Verse not found")
     return verse
+
+
+
+# @router.get("/graphql")

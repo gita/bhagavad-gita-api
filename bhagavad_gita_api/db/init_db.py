@@ -30,6 +30,7 @@ def init_db(db: Session) -> None:
 
     Base.metadata.create_all(engine)
     if new_db:
+        # pass
         insert_all()
-        reference_all()
+        # reference_all()
         # the reference scripts are very slow

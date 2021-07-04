@@ -1,7 +1,8 @@
 import logging
 
-# from graphql2 import Query
 import uvicorn
+import graphene
+from starlette.graphql import GraphQLApp
 from fastapi import Depends, FastAPI, HTTPException, Security, status
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.security.api_key import APIKeyHeader
@@ -13,6 +14,7 @@ from bhagavad_gita_api.config import settings
 from bhagavad_gita_api.crud import get_valid_api_keys
 from bhagavad_gita_api.db.init_db import init_db
 from bhagavad_gita_api.db.session import SessionLocal
+from bhagavad_gita_api.graphql2 import Query
 
 API_KEY_NAME = "X-API-KEY"
 api_key_header_auth = APIKeyHeader(name=API_KEY_NAME, auto_error=True)
@@ -46,8 +48,9 @@ app.add_middleware(
     allow_methods=["GET", "POST"],
     allow_headers=["*"],
 )
+
+app.add_route("/graphql", GraphQLApp(schema=graphene.Schema(query=Query)))
 app.include_router(api_router, prefix=settings.API_V2_STR)
-# app.add_route("/graphql", GraphQLApp(schema=graphene.Schema(query=Query)))
 
 
 @app.on_event("startup")
