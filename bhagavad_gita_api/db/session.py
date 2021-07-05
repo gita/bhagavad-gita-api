@@ -1,5 +1,5 @@
 from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker, scoped_session
+from sqlalchemy.orm import scoped_session, sessionmaker
 
 from bhagavad_gita_api.config import settings
 from bhagavad_gita_api.db.base_class import Base

@@ -1,12 +1,12 @@
 import logging
 
-import uvicorn
 import graphene
-from starlette.graphql import GraphQLApp
+import uvicorn
 from fastapi import Depends, FastAPI, HTTPException, Security, status
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.security.api_key import APIKeyHeader
 from sqlalchemy.orm import Session
+from starlette.graphql import GraphQLApp
 
 from bhagavad_gita_api.api import deps
 from bhagavad_gita_api.api.api_v2.api import api_router

@@ -1,18 +1,15 @@
 import time
 
 import graphene
-from fastapi import FastAPI
-from starlette.graphql import GraphQLApp
-from graphene_sqlalchemy import SQLAlchemyObjectType, SQLAlchemyConnectionField
-from bhagavad_gita_api import models
-from bhagavad_gita_api.models.gita import (
-    GitaTranslation,
-    GitaCommentary,
-    GitaVerse,
-    GitaChapter,
-)
+from graphene_sqlalchemy import SQLAlchemyObjectType
 
 from bhagavad_gita_api.db.session import db_session
+from bhagavad_gita_api.models.gita import (
+    GitaChapter,
+    GitaCommentary,
+    GitaTranslation,
+    GitaVerse,
+)
 
 db = db_session.session_factory()
 
@@ -261,10 +258,10 @@ class GitaChapterModel(SQLAlchemyObjectType):
             )
 
         if "skip" in kwargs.keys():
-            query = query[kwargs.get('skip'):]
+            query = query[kwargs.get("skip") :]
 
         if "first" in kwargs.keys():
-            query = query[:kwargs.get('first')]
+            query = query[: kwargs.get("first")]
 
         print("--- %s Verses seconds ---" % (time.time() - start_time))
 
