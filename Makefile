@@ -9,7 +9,9 @@ list:
 no_targets__:
 
 VERSION=$$(poetry version -s)
-PROJECT="bhagavadgita-api"
+PROJECT="bhagavad-gita-api"
+DOCKER_ORG="bhagavadgita"
+DOCKER_REPO="$(DOCKER_ORG)/$(PROJECT)"
 
 clean:
 	@rm -rf build dist .eggs *.egg-info
@@ -28,3 +30,13 @@ hard-clean: clean
 
 pypi:
 	@poetry publish --build
+
+docker:
+	@docker build -t $(PROJECT) .
+	@docker tag $(PROJECT) $(DOCKER_REPO):latest
+	@docker tag $(PROJECT) $(DOCKER_REPO):$(VERSION)
+
+docker-release: docker
+	@docker push -a $(DOCKER_REPO)
+
+release: pypi docker-release
