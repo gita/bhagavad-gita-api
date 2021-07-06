@@ -15,7 +15,3 @@ def insert_all():
     )
 
     # importing the modules executes the code in it
-
-
-def reference_all():
-    from bhagavad_gita_api.data.reference import commentaries, translations, verses
