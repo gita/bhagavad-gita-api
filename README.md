@@ -1,7 +1,7 @@
 <!-- markdownlint-disable -->
 <p align="center">
   <a href="https://bhagavadgita.io">
-    <img src=".github/gita.png" alt="Logo" width="300">
+    <img src="https://raw.githubusercontent.com/gita/bhagavad-gita-api/main/.github/gita.png" alt="Logo" width="300">
   </a>
 
   <h3 align="center">Bhagavad Gita API v2</h3>
