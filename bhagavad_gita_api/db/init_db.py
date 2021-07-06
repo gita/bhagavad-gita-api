@@ -31,4 +31,3 @@ def init_db(db: Session) -> None:
     Base.metadata.create_all(engine)
     if new_db:
         insert_all()
-
