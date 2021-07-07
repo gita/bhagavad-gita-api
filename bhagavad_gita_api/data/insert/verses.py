@@ -19,11 +19,11 @@ data = json.loads(content)
 for i in track(data, description="Loading verses"):
     li.append(
         GitaVerse(
-            verse_number=i.get("verse_number"),
-            chapter_number=i.get("chapter_number"),
-            text=i.get("text"),
-            id=i.get("id"),
-            chapter_id=i.get("chapter_id"),
+            verse_number=i["verse_number"],
+            chapter_number=i["chapter_number"],
+            text=i["text"],
+            id=i["id"],
+            chapter_id=i["chapter_id"],
         )
     )
 session.add_all(li)

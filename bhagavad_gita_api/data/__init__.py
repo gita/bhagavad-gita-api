@@ -1,4 +1,8 @@
-"""Load initial data into database."""
+"""
+    Load initial data into database.
+
+   isort:skip_file
+"""
 import os
 
 
@@ -7,15 +11,11 @@ def insert_all():
 
     from bhagavad_gita_api.data.insert import (
         authors,
-        chapters,
-        commentaries,
         languages,
-        translations,
+        chapters,
         verses,
+        translations,
+        commentaries,
     )
 
     # importing the modules executes the code in it
-
-
-def reference_all():
-    from bhagavad_gita_api.data.reference import commentaries, translations, verses
