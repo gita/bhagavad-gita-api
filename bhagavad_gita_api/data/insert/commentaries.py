@@ -19,12 +19,12 @@ data = json.loads(content)
 for i in track(data, description="Loading commentary"):
     li.append(
         GitaCommentary(
-            description=i.get("description"),
-            author_name=i.get("authorName"),
-            language=i.get("lang"),
-            verse_id=i.get("verseNumber"),
-            author_id=i.get("author_id"),
-            language_id=i.get("language_id"),
+            description=i["description"],
+            author_name=i["authorName"],
+            language=i["lang"],
+            verse_id=i["verseNumber"],
+            author_id=i["author_id"],
+            language_id=i["language_id"],
         )
     )
 session.add_all(li)
