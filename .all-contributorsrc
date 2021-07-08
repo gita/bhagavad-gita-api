@@ -31,7 +31,25 @@
       "contributions": [
         "code"
       ]
-    }
+    },
+    {
+      "login": "akshatj2209",
+      "name": "Akshat Joshi",
+      "avatar_url": "https://avatars.githubusercontent.com/u/57488922?v=4",
+      "profile": "https://github.com/akshatj2209",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "Amritpal2001",
+      "name": "Amritpal Singh",
+      "avatar_url": "https://avatars.githubusercontent.com/u/60562606?v=4",
+      "profile": "https://www.realdevils.com/",
+      "contributions": [
+        "code"
+      ]
+    },
   ],
   "contributorsPerLine": 7,
   "projectName": "bhagavad-gita-api",
