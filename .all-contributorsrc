@@ -24,6 +24,15 @@
       ]
     },
     {
+      "login": "aahnik",
+      "name": "Aahnik Daw",
+      "avatar_url": "https://avatars.githubusercontent.com/u/66209958?v=4",
+      "profile": "http://aahnik.dev",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
       "login": "akshatj2209",
       "name": "Akshat Joshi",
       "avatar_url": "https://avatars.githubusercontent.com/u/57488922?v=4",
@@ -31,7 +40,16 @@
       "contributions": [
         "code"
       ]
-    }
+    },
+    {
+      "login": "Amritpal2001",
+      "name": "Amritpal Singh",
+      "avatar_url": "https://avatars.githubusercontent.com/u/60562606?v=4",
+      "profile": "https://www.realdevils.com/",
+      "contributions": [
+        "code"
+      ]
+    },
   ],
   "contributorsPerLine": 7,
   "projectName": "bhagavad-gita-api",
