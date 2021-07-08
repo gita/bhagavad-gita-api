@@ -127,6 +127,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="http://aahnik.dev"><img src="https://avatars.githubusercontent.com/u/66209958?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Aahnik Daw</b></sub></a><br /><a href="https://github.com/gita/bhagavad-gita-api/commits?author=aahnik" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/akshatj2209"><img src="https://avatars.githubusercontent.com/u/57488922?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Akshat Joshi</b></sub></a><br /><a href="https://github.com/gita/bhagavad-gita-api/commits?author=akshatj2209" title="Code">💻</a></td>
     <td align="center"><a href="https://www.realdevils.com/"><img src="https://avatars.githubusercontent.com/u/60562606?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Amritpal Singh</b></sub></a><br /><a href="https://github.com/gita/bhagavad-gita-api/commits?author=Amritpal2001" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/NIKU-SINGH"><img src="https://avatars.githubusercontent.com/u/72123526?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Niku Singh</b></sub></a><br /><a href="https://github.com/gita/bhagavad-gita-api/commits?author=NIKU-SINGH" title="Code">💻</a></td>
   </tr>
 </table>
 
