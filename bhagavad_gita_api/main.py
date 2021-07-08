@@ -1,5 +1,3 @@
-import logging
-
 import graphene
 import uvicorn
 from fastapi import Depends, FastAPI, HTTPException, Security, status
@@ -12,8 +10,6 @@ from bhagavad_gita_api.api import deps
 from bhagavad_gita_api.api.api_v2.api import api_router
 from bhagavad_gita_api.config import settings
 from bhagavad_gita_api.crud import get_valid_api_keys
-from bhagavad_gita_api.db.init_db import init_db
-from bhagavad_gita_api.db.session import SessionLocal
 from bhagavad_gita_api.graphql2 import Query
 
 API_KEY_NAME = "X-API-KEY"

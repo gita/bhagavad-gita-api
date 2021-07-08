@@ -1,8 +1,8 @@
 import typer
-from bhagavad_gita_api.db.init_db import init_db
-from bhagavad_gita_api.db.session import SessionLocal
+
 from bhagavad_gita_api.db.base_class import Base
-from bhagavad_gita_api.db.session import engine
+from bhagavad_gita_api.db.init_db import init_db
+from bhagavad_gita_api.db.session import SessionLocal, engine
 
 app = typer.Typer()
 
