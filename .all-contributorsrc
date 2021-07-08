@@ -22,6 +22,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "aahnik",
+      "name": "Aahnik Daw",
+      "avatar_url": "https://avatars.githubusercontent.com/u/66209958?v=4",
+      "profile": "http://aahnik.dev",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
