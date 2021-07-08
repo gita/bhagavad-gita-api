@@ -1,0 +1,24 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "contributors": [
+    {
+      "login": "Gupta-Anubhav12",
+      "name": "Anubhav Gupta",
+      "avatar_url": "https://avatars.githubusercontent.com/u/64721638?v=4",
+      "profile": "https://github.com/Gupta-Anubhav12",
+      "contributions": [
+        "code"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "projectName": "bhagavad-gita-api",
+  "projectOwner": "gita",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "skipCi": true
+}
