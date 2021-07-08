@@ -100,3 +100,6 @@ venv/
 */*.swp
 */*/*.swp
 */*/*/*.swp
+
+# volume folder for postgres database
+db_data

@@ -31,6 +31,8 @@ python-dotenv = "^0.18.0"
 pytz = "^2021.1"
 rich = "^10.4.0"
 graphene = "^2.1.8"
+typer = "^0.3.2"
+gunicorn = "^20.1.0"
 
 [tool.poetry.dev-dependencies]
 pre-commit = "^2.13.0"

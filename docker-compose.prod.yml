@@ -1,0 +1,14 @@
+version: "3.7"
+
+services:
+  api:
+    container_name: gita-api
+    image: bhagavadgita/bhagavad-gita-api
+    build:
+      context: .
+      dockerfile: Dockerfile.prod
+    ports:
+      - 8081:8081
+    env_file:
+      - .env
+    restart: unless-stopped
