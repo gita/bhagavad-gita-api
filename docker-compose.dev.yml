@@ -1,0 +1,29 @@
+version: "3.7"
+
+services:
+  api:
+    container_name: gita-api
+    image: bhagavadgita/bhagavad-gita-api
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    ports:
+      - 8081:8081
+    volumes:
+      - ./:/app
+    stdin_open: true
+    tty: true
+    depends_on:
+      - database
+    env_file:
+      - .env
+    restart: on-failure:5
+
+  database:
+    container_name: gita-db
+    image: postgres:12-alpine
+    volumes:
+      - ./db_data:/var/lib/postgresql
+    env_file:
+      - .env
+    restart: on-failure:5

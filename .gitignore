@@ -136,3 +136,9 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# volume folder for postgres database
+db_data
+
+# sqlite3 file
+bhagavad_gita_api/gita.db

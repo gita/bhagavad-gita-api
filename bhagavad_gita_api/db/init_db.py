@@ -5,7 +5,17 @@ from bhagavad_gita_api.config import settings
 from bhagavad_gita_api.data import insert_all
 from bhagavad_gita_api.db.base_class import Base
 from bhagavad_gita_api.db.session import engine
-from bhagavad_gita_api.models import user
+from bhagavad_gita_api.models.gita import (  # NOQA
+    GitaAuthor,
+    GitaChapter,
+    GitaCommentary,
+    GitaLanguage,
+    GitaTranslation,
+    GitaVerse,
+)
+from bhagavad_gita_api.models.user import User
+
+# import all the models to create tables
 
 
 def init_db(db: Session) -> None:
@@ -14,7 +24,7 @@ def init_db(db: Session) -> None:
     new_db = False
     if not user_in:
         new_db = True
-        user_in = user.User(
+        user_in = User(
             id=1,
             full_name="Radha Krishna",
             email="admin@bhagavadgita.io",
