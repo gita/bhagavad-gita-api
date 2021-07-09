@@ -1,0 +1,69 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "contributors": [
+    {
+      "login": "Gupta-Anubhav12",
+      "name": "Anubhav Gupta",
+      "avatar_url": "https://avatars.githubusercontent.com/u/64721638?v=4",
+      "profile": "https://github.com/Gupta-Anubhav12",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "sanujsood",
+      "name": "Sanuj Sood",
+      "avatar_url": "https://avatars.githubusercontent.com/u/67072668?v=4",
+      "profile": "https://github.com/sanujsood",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "aahnik",
+      "name": "Aahnik Daw",
+      "avatar_url": "https://avatars.githubusercontent.com/u/66209958?v=4",
+      "profile": "http://aahnik.dev",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "akshatj2209",
+      "name": "Akshat Joshi",
+      "avatar_url": "https://avatars.githubusercontent.com/u/57488922?v=4",
+      "profile": "https://github.com/akshatj2209",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "Amritpal2001",
+      "name": "Amritpal Singh",
+      "avatar_url": "https://avatars.githubusercontent.com/u/60562606?v=4",
+      "profile": "https://www.realdevils.com/",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "NIKU-SINGH",
+      "name": "Niku Singh",
+      "avatar_url": "https://avatars.githubusercontent.com/u/72123526?v=4",
+      "profile": "https://github.com/NIKU-SINGH",
+      "contributions": [
+        "code"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "projectName": "bhagavad-gita-api",
+  "projectOwner": "gita",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "skipCi": true
+}
