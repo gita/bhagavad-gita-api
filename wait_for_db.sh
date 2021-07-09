@@ -3,6 +3,7 @@
 echo "Waiting for postgres..."
 
 while ! nc -z $DB_HOST $DB_PORT; do
+  echo "couldn't connect to database @ $DB_HOST:$DB_PORT retrying in 1 second ..."
   sleep 1
 done
 

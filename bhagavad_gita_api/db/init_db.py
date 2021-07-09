@@ -5,6 +5,14 @@ from bhagavad_gita_api.config import settings
 from bhagavad_gita_api.data import insert_all
 from bhagavad_gita_api.db.base_class import Base
 from bhagavad_gita_api.db.session import engine
+from bhagavad_gita_api.models.gita import (  # NOQA
+    GitaAuthor,
+    GitaChapter,
+    GitaCommentary,
+    GitaLanguage,
+    GitaTranslation,
+    GitaVerse,
+)
 from bhagavad_gita_api.models.user import User
 
 # import all the models to create tables

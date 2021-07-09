@@ -21,6 +21,7 @@ jobs:
           echo POSTGRES_DB="${{ secrets.POSTGRES_DB }}" >> .env
           echo DB_HOST="${{ secrets.DB_HOST }}" >> .env
           echo DB_PORT="${{ secrets.DB_PORT }}" >> .env
+          echo TESTER_API_KEY="${{ secrets.TESTER_API_KEY }}" >> .env
 
       - name: build docker images locally
         run: docker-compose -f docker-compose.prod.yml build --parallel

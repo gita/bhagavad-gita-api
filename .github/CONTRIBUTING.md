@@ -11,6 +11,7 @@ To work on this project you will need the following software installed in your m
 - poetry (package management)
 - make (command line utils)
 - docker (optional, if you want to build docker images)
+- docker-compose (optional, if you want to develop with docker-compose)
 
 1. First of all fork and clone this repo. Checkout a new branch to start working.
 For more information read
@@ -41,7 +42,19 @@ In your code editor set the python interpretor path to `./.venv/bin/python`
     pre-commit install
     ```
 
-6. To start the server with hot reload,
+6. Setup .env file refer .env.example.
+
+    ```shell
+    cp .env.example .env
+    ```
+
+7. Seed data to database.
+
+    ```shell
+    python bhagavad_gita_api/cli.py seed-data
+    ```
+
+8. To start the server with hot reload,
 
     ```shell
     uvicorn bhagavad_gita_api.main:app --host 0.0.0.0 --port 8081 --reload
@@ -51,19 +64,33 @@ In your code editor set the python interpretor path to `./.venv/bin/python`
     To set the database DSN, tester API Key and other stuff, read about
     [configuration](../README.md/#Configuration) in the README.
 
-7. Try to write test cases when you are adding a feature or fixing a bug.
+9. Try to write test cases when you are adding a feature or fixing a bug.
 
-8. Make sure that all existing tests, and code quality checks pass.
+10. Make sure that all existing tests, and code quality checks pass.
 
     ```shell
     pytest # run tests
     pre-commit run -a # run pre-commit for all files
     ```
 
-9. Make sure to write meaningful commit messages.
+11. Make sure to write meaningful commit messages.
 
-10. Open a PR. Please explain what your changes does in a simple words.
+12. Open a PR. Please explain what your changes does in a simple words.
 Attach logs, screenshots and other relevant material.
 
 Congrats and thanks for opening your first PR!
 Please wait for the maintainers to respond.
+
+---
+
+## Developing with Docker and docker-compose
+
+```shell
+
+# setup .env file, refer .env.example file
+cp .env.example .env
+
+# run the project with docker-compose
+docker-compose -f docker-compose.dev.yml up --build
+
+```
