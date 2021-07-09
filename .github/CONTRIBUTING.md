@@ -94,3 +94,22 @@ cp .env.example .env
 docker-compose -f docker-compose.dev.yml up --build
 
 ```
+
+---
+
+## Contributors List
+
+To add yourself to the contributors list, comment on an Issue or Pull Request,
+asking @all-contributors to add a contributor:
+
+```txt
+@all-contributors please add @<username> for <contributions>
+```
+
+**\<contribution>**: See the [Emoji Key (Contribution Types Reference)](../emoji-key)
+ for a list of valid `contribution` types.
+
+The bot will then create a Pull Request to add the contributor,
+then reply with the pull request details.
+
+![Example usage screenshot](../.github/bot-usage.png "Example usage")
