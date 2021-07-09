@@ -58,6 +58,16 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "sreevardhanreddi",
+      "name": "sreevardhanreddi",
+      "avatar_url": "https://avatars.githubusercontent.com/u/31174432?v=4",
+      "profile": "https://sreevardhanreddi.github.io/",
+      "contributions": [
+        "code",
+        "infra"
+      ]
     }
   ],
   "contributorsPerLine": 7,
