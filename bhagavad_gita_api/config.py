@@ -1,7 +1,10 @@
 import os
 from typing import Optional
 
+from dotenv import load_dotenv
 from pydantic import AnyUrl, BaseSettings
+
+load_dotenv()
 
 
 def get_database_uri():
