@@ -26,10 +26,14 @@ The Bhagavad Gita API allows any developer to use content from Gita in their app
 This API is built with FastAPI which is based on (and fully compatible with) the open standards for APIs: OpenAPI (previously known as Swagger) and JSON Schema.
 
 Documentation for this API is availaible in two interactive formats:
-- [Swagger UI](https://api.bhagavadgita.io/docs)
-- [Redoc](https://api.bhagavadgita.io/redoc)
+- [Swagger UI](https://api.bhagavadgita.dev/docs)
+- [Redoc](https://api.bhagavadgita.dev/redoc)
 
-If you are interested in using this API for your application, you need to obtain an API Key from [bhagavadgita.io](https://bhagavadgita.io).
+If you are interested in using this API for your application, please 
+register an account at 
+[RapidAPI](https://rapidapi.com/bhagavad-gita-bhagavad-gita-default/api/bhagavad-gita3) 
+where you'll get both the credentials as well as sample code in your language of 
+choice. The API is 100% FREE to use.
 
 ## Projects
 
@@ -43,8 +47,7 @@ Have you build something with this API ? Open a "Show and tell" discussion. The 
 ## Self Hosting
 <!-- markdownlint-enable -->
 
-The official API at [api.bhagavadgita.io](https://api.bhagavadgita.io)
-is free to use for all.
+The official API is free to use for all.
 But If you wish you can self host anywhere you want.
 
 If you want to deploy your own instance,You can deploy
