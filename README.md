@@ -29,10 +29,10 @@ Documentation for this API is availaible in two interactive formats:
 - [Swagger UI](https://api.bhagavadgita.dev/docs)
 - [Redoc](https://api.bhagavadgita.dev/redoc)
 
-If you are interested in using this API for your application, please 
-register an account at 
-[RapidAPI](https://rapidapi.com/bhagavad-gita-bhagavad-gita-default/api/bhagavad-gita3) 
-where you'll get both the credentials as well as sample code in your language of 
+If you are interested in using this API for your application, please
+register an account at
+[RapidAPI](https://rapidapi.com/bhagavad-gita-bhagavad-gita-default/api/bhagavad-gita3)
+where you'll get both the credentials as well as sample code in your language of
 choice. The API is 100% FREE to use.
 
 ## Projects
