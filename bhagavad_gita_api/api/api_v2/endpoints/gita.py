@@ -2,6 +2,7 @@ import logging
 from typing import List
 
 from fastapi import APIRouter, Depends, HTTPException
+from fastapi import Query as PathQuery
 from sqlalchemy.orm import Session, joinedload
 
 from bhagavad_gita_api.api import deps
@@ -15,7 +16,11 @@ router = APIRouter()
 
 
 @router.get("/chapters/", response_model=List[schemas.GitaChapter], tags=["chapters"])
-def get_all_chapters(db: Session = Depends(deps.get_db)):
+def get_all_chapters(
+    skip: int = PathQuery(..., gt=0, le=18),
+    limit: int = PathQuery(..., gt=0, le=18),
+    db: Session = Depends(deps.get_db),
+):
     chapters = (
         db.query(models.GitaChapter)
         .with_entities(
@@ -29,6 +34,8 @@ def get_all_chapters(db: Session = Depends(deps.get_db)):
             models.GitaChapter.chapter_summary,
         )
         .order_by(models.GitaChapter.id.asc())
+        .offset(skip)
+        .limit(limit)
         .all()
     )
     return chapters
@@ -41,6 +48,16 @@ def get_particular_chapter(chapter_number: int, db: Session = Depends(deps.get_d
     chapter = (
         db.query(models.GitaChapter)
         .filter(models.GitaChapter.chapter_number == chapter_number)
+        .with_entities(
+            models.GitaChapter.id,
+            models.GitaChapter.name,
+            models.GitaChapter.name_transliterated,
+            models.GitaChapter.name_translated,
+            models.GitaChapter.verses_count,
+            models.GitaChapter.chapter_number,
+            models.GitaChapter.name_meaning,
+            models.GitaChapter.chapter_summary,
+        )
         .first()
     )
     if chapter is None:
@@ -48,22 +65,22 @@ def get_particular_chapter(chapter_number: int, db: Session = Depends(deps.get_d
     return chapter
 
 
-@router.get("/verses/", response_model=List[schemas.GitaVerse], tags=["verses"])
-def get_all_verses_from_all_chapters(
-    skip: int = 0, limit: int = 10, db: Session = Depends(deps.get_db)
-):
-    verses = (
-        db.query(models.GitaVerse)
-        .options(
-            joinedload(models.GitaVerse.commentaries),
-            joinedload(models.GitaVerse.translations),
-        )
-        .order_by(models.GitaVerse.id.asc())
-        .offset(skip)
-        .limit(limit)
-        .all()
-    )
-    return verses
+# @router.get("/verses/", response_model=List[schemas.GitaVerse], tags=["verses"])
+# def get_all_verses_from_all_chapters(
+#     skip: int = 0, limit: int = 10, db: Session = Depends(deps.get_db)
+# ):
+#     verses = (
+#         db.query(models.GitaVerse)
+#         .options(
+#             joinedload(models.GitaVerse.commentaries),
+#             joinedload(models.GitaVerse.translations),
+#         )
+#         .order_by(models.GitaVerse.id.asc())
+#         .offset(skip)
+#         .limit(limit)
+#         .all()
+#     )
+#     return verses
 
 
 @router.get(
@@ -112,6 +129,3 @@ def get_particular_verse_from_chapter(
     if verse is None:
         raise HTTPException(status_code=404, detail="Verse not found")
     return verse
-
-
-# @router.get("/graphql")
