@@ -15,7 +15,7 @@
       <a href="https://github.com/gita/bhagavad-gita-api/blob/master/LICENSE">
     <img alt="LICENSE" src="https://img.shields.io/badge/License-MIT-yellow.svg?maxAge=43200">
   </a>
-  <a href="https://api.bhagavadgita.io/docs"><img src="https://img.shields.io/badge/docs-passing-green" alt="Docs"></a>
+  <a href="https://api.bhagavadgita.dev/docs"><img src="https://img.shields.io/badge/docs-passing-green" alt="Docs"></a>
   <a href="https://starcharts.herokuapp.com/gita/bhagavad-gita-api"><img alt="Stars" src="https://img.shields.io/github/stars/gita/bhagavad-gita-api.svg?style=social"></a>
 </p>
 
