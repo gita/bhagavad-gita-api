@@ -2,7 +2,6 @@ import logging
 from typing import List
 
 from fastapi import APIRouter, Depends, HTTPException
-from fastapi import Query as PathQuery
 from sqlalchemy.orm import Session, joinedload
 
 from bhagavad_gita_api.api import deps
@@ -17,8 +16,8 @@ router = APIRouter()
 
 @router.get("/chapters/", response_model=List[schemas.GitaChapter], tags=["chapters"])
 def get_all_chapters(
-    skip: int = PathQuery(..., gt=0, le=18),
-    limit: int = PathQuery(..., gt=0, le=18),
+    skip: int = 0,
+    limit: int = 18,
     db: Session = Depends(deps.get_db),
 ):
     chapters = (
