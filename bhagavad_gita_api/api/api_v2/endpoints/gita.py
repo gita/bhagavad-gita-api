@@ -15,14 +15,20 @@ router = APIRouter()
 
 
 @router.get("/chapters/", response_model=List[schemas.GitaChapter], tags=["chapters"])
-def get_all_chapters(
-    skip: int = 0, limit: int = 18, db: Session = Depends(deps.get_db)
-):
+def get_all_chapters(db: Session = Depends(deps.get_db)):
     chapters = (
         db.query(models.GitaChapter)
+        .with_entities(
+            models.GitaChapter.id,
+            models.GitaChapter.name,
+            models.GitaChapter.name_transliterated,
+            models.GitaChapter.name_translated,
+            models.GitaChapter.verses_count,
+            models.GitaChapter.chapter_number,
+            models.GitaChapter.name_meaning,
+            models.GitaChapter.chapter_summary,
+        )
         .order_by(models.GitaChapter.id.asc())
-        .offset(skip)
-        .limit(limit)
         .all()
     )
     return chapters
