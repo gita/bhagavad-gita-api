@@ -1,330 +1,91 @@
-import time
-
 import graphene
-from graphene_sqlalchemy import SQLAlchemyObjectType
+from graphene import relay
+from graphene_sqlalchemy import SQLAlchemyConnectionField, SQLAlchemyObjectType
 
 from bhagavad_gita_api.db.session import db_session
-from bhagavad_gita_api.models.gita import (
-    GitaChapter,
-    GitaCommentary,
-    GitaTranslation,
-    GitaVerse,
-)
+from bhagavad_gita_api.models.gita import GitaAuthor as GitaAuthorModel
+from bhagavad_gita_api.models.gita import GitaChapter as GitaChapterModel
+from bhagavad_gita_api.models.gita import GitaCommentary as GitaCommentaryModel
+from bhagavad_gita_api.models.gita import GitaLanguage as GitaLanguageModel
+from bhagavad_gita_api.models.gita import GitaTranslation as GitaTranslationModel
+from bhagavad_gita_api.models.gita import GitaVerse as GitaVerseModel
 
 db = db_session.session_factory()
 
 
-class GitaTranslationModel(SQLAlchemyObjectType):
+class GitaLanguage(SQLAlchemyObjectType):
     class Meta:
-        model = GitaTranslation
+        model = GitaLanguageModel
+        interfaces = (relay.Node,)
 
 
-class GitaCommentryModel(SQLAlchemyObjectType):
+class GitaAuthor(SQLAlchemyObjectType):
     class Meta:
-        model = GitaCommentary
+        model = GitaAuthorModel
+        interfaces = (relay.Node,)
 
 
-class GitaVerseModel(SQLAlchemyObjectType):
-    translations = graphene.List(
-        GitaTranslationModel,
-        authorName=graphene.String(),
-        language=graphene.String(),
-        limit=graphene.Int(),
-        first=graphene.Int(),
-        skip=graphene.Int(),
-    )
-    commentaries = graphene.List(
-        GitaCommentryModel,
-        authorName=graphene.String(),
-        language=graphene.String(),
-        limit=graphene.Int(),
-        first=graphene.Int(),
-        skip=graphene.Int(),
-    )
-
+class GitaTranslation(SQLAlchemyObjectType):
     class Meta:
-        model = GitaVerse
-        exclude_fields = ("translations", "commentaries")
-
-        # filtering Pending
-
-    def resolve_translations(parent, info, **kwargs):
-
-        if "limit" in kwargs.keys():
-
-            query = (
-                GitaTranslationModel.get_query(info)
-                .filter(GitaTranslation.verse_id == parent.verse_number)
-                .limit(kwargs.get("limit"))
-            )
-        elif "authorName" in kwargs.keys():
-            query = (
-                GitaTranslationModel.get_query(info)
-                .filter(GitaTranslation.authorName == kwargs.get("authorName"))
-                .filter(GitaTranslation.verse_id == parent.verse_number)
-            )
-
-        elif "language" in kwargs.keys():
-            query = (
-                GitaTranslationModel.get_query(info)
-                .filter(GitaTranslation.lang == kwargs.get("language"))
-                .filter(GitaTranslation.verse_id == parent.verse_number)
-            )
-
-        else:
-            query = GitaTranslationModel.get_query(info).filter(
-                GitaTranslation.verse_id == parent.verse_number
-            )
-
-        if "skip" in kwargs.keys():
-            query = query[kwargs.get("skip") :]
-
-        if "first" in kwargs.keys():
-            query = query[: kwargs.get("first")]
-
-        return query
-
-    def resolve_commentaries(parent, info, **kwargs):
-        start_time = time.time()
-        if "limit" in kwargs.keys():
-
-            query = (
-                GitaCommentryModel.get_query(info)
-                .filter(GitaCommentary.verse_id == parent.verse_number)
-                .limit(kwargs.get("limit"))
-            )
-        elif "authorName" in kwargs.keys():
-            query = (
-                GitaCommentryModel.get_query(info)
-                .filter(GitaCommentary.authorName == kwargs.get("authorName"))
-                .filter(GitaCommentary.verse_id == parent.verse_number)
-            )
-
-        elif "language" in kwargs.keys():
-            query = (
-                GitaCommentryModel.get_query(info)
-                .filter(GitaCommentary.lang == kwargs.get("language"))
-                .filter(GitaCommentary.verse_id == parent.verse_number)
-            )
-
-        else:
-            query = GitaCommentryModel.get_query(info).filter(
-                GitaCommentary.verse_id == parent.verse_number
-            )
-
-        if "skip" in kwargs.keys():
-            query = query[kwargs.get("skip") :]
-
-        if "first" in kwargs.keys():
-            query = query[: kwargs.get("first")]
-
-        print("--- %s commentary seconds ---" % (time.time() - start_time))
-        return query
+        model = GitaTranslationModel
+        interfaces = (relay.Node,)
 
 
-class nestedVersesModel(SQLAlchemyObjectType):
-
-    translations = graphene.List(
-        GitaTranslationModel,
-        authorName=graphene.String(),
-        language=graphene.String(),
-        limit=graphene.Int(),
-        first=graphene.Int(),
-        skip=graphene.Int(),
-    )
-    commentaries = graphene.List(
-        GitaCommentryModel,
-        authorName=graphene.String(),
-        language=graphene.String(),
-        limit=graphene.Int(),
-        first=graphene.Int(),
-        skip=graphene.Int(),
-    )
-
+class GitaCommentary(SQLAlchemyObjectType):
     class Meta:
-        model = GitaVerse
-        exclude_fields = ("translations", "commentaries")
-
-        # filtering Pending
-
-    def resolve_translations(parent, info, **kwargs):
-
-        if "limit" in kwargs.keys():
-
-            query = (
-                GitaTranslationModel.get_query(info)
-                .filter(GitaTranslation.verse_id == parent.verse_number)
-                .limit(kwargs.get("limit"))
-            )
-        elif "authorName" in kwargs.keys():
-            query = (
-                GitaTranslationModel.get_query(info)
-                .filter(GitaTranslation.authorName == kwargs.get("authorName"))
-                .filter(GitaTranslation.verse_id == parent.verse_number)
-            )
-
-        elif "language" in kwargs.keys():
-            query = (
-                GitaTranslationModel.get_query(info)
-                .filter(GitaTranslation.lang == kwargs.get("language"))
-                .filter(GitaTranslation.verse_id == parent.verse_number)
-            )
-
-        else:
-            query = GitaTranslationModel.get_query(info).filter(
-                GitaTranslation.verse_id == parent.verse_number
-            )
-
-        if "skip" in kwargs.keys():
-            query = query[kwargs.get("skip") :]
-
-        if "first" in kwargs.keys():
-            query = query[: kwargs.get("first")]
-
-        return query
-
-    def resolve_commentaries(parent, info, **kwargs):
-        start_time = time.time()
-        if "limit" in kwargs.keys():
-
-            query = (
-                GitaCommentryModel.get_query(info)
-                .filter(GitaCommentary.verse_id == parent.verse_number)
-                .limit(kwargs.get("limit"))
-            )
-        elif "authorName" in kwargs.keys():
-            query = (
-                GitaCommentryModel.get_query(info)
-                .filter(GitaCommentary.authorName == kwargs.get("authorName"))
-                .filter(GitaCommentary.verse_id == parent.verse_number)
-            )
-
-        elif "language" in kwargs.keys():
-            query = (
-                GitaCommentryModel.get_query(info)
-                .filter(GitaCommentary.lang == kwargs.get("language"))
-                .filter(GitaCommentary.verse_id == parent.verse_number)
-            )
-
-        else:
-            query = GitaCommentryModel.get_query(info).filter(
-                GitaCommentary.verse_id == parent.verse_number
-            )
-
-        if "skip" in kwargs.keys():
-            query = query[kwargs.get("skip") :]
-
-        if "first" in kwargs.keys():
-            query = query[: kwargs.get("first")]
-
-        print("--- %s commentary seconds ---" % (time.time() - start_time))
-        return query
+        model = GitaCommentaryModel
+        interfaces = (relay.Node,)
 
 
-class GitaChapterModel(SQLAlchemyObjectType):
-
-    verses = graphene.List(
-        nestedVersesModel,
-        verse_id=graphene.Int(),
-        limit=graphene.Int(),
-        first=graphene.Int(),
-        skip=graphene.Int(),
-    )
-
+class GitaChapter(SQLAlchemyObjectType):
     class Meta:
-        model = GitaChapter
-        exclude_fields = ("verses",)
+        model = GitaChapterModel
+        interfaces = (relay.Node,)
 
-    def resolve_verses(parent, info, **kwargs):
-        start_time = time.time()
 
-        if "limit" in kwargs.keys():
-            query = (
-                GitaVerseModel.get_query(info)
-                .filter(GitaVerse.chapter_number == parent.chapter_number)
-                .limit(kwargs.get("limit"))
-            )
-
-        elif "verse_id" in kwargs.keys():
-            query = (
-                GitaVerseModel.get_query(info)
-                .filter(GitaVerse.verse_number == kwargs.get("verse_id"))
-                .filter(GitaVerse.chapter_number == parent.chapter_number)
-            )
-
-        else:
-            query = GitaVerseModel.get_query(info).filter(
-                GitaVerse.chapter_number == parent.chapter_number
-            )
-
-        if "skip" in kwargs.keys():
-            query = query[kwargs.get("skip") :]
-
-        if "first" in kwargs.keys():
-            query = query[: kwargs.get("first")]
-
-        print("--- %s Verses seconds ---" % (time.time() - start_time))
-
-        return query
+class GitaVerse(SQLAlchemyObjectType):
+    class Meta:
+        model = GitaVerseModel
+        interfaces = (relay.Node,)
 
 
 class Query(graphene.ObjectType):
-    chapters = graphene.List(
-        GitaChapterModel,
-        chapterNumber=graphene.Int(),
-        limit=graphene.Int(),
-        first=graphene.Int(),
-        skip=graphene.Int(),
-    )
+    node = relay.Node.Field()
+    all_chapters = SQLAlchemyConnectionField(GitaChapter.connection)
+    all_verses = SQLAlchemyConnectionField(GitaVerse.connection)
+    all_translations = SQLAlchemyConnectionField(GitaTranslation.connection)
+    all_commentaries = SQLAlchemyConnectionField(GitaCommentary.connection)
+    all_languages = SQLAlchemyConnectionField(GitaLanguage.connection)
+    all_authors = SQLAlchemyConnectionField(GitaAuthor.connection)
 
-    verses = graphene.List(
-        GitaVerseModel,
-        verse_id=graphene.Int(),
-        limit=graphene.Int(),
-        first=graphene.Int(),
-        skip=graphene.Int(),
-    )
+    chapters = graphene.List(GitaChapter)
+    verses = graphene.List(GitaVerse)
+    translations = graphene.List(GitaTranslation)
+    commentaries = graphene.List(GitaCommentary)
+    languages = graphene.List(GitaLanguage)
+    authors = graphene.List(GitaAuthor)
 
-    @staticmethod
-    def resolve_chapters(parent, info, **kwargs):
-        start_time = time.time()
+    chapter = graphene.Node.Field(GitaChapter)
+    verse = graphene.Node.Field(GitaVerse)
+    translation = graphene.Node.Field(GitaTranslation)
+    commentary = graphene.Node.Field(GitaCommentary)
+    language = graphene.Node.Field(GitaLanguage)
+    author = graphene.Node.Field(GitaAuthor)
 
-        if "chapterNumber" in kwargs.keys():
-            query = GitaChapterModel.get_query(info).filter(
-                GitaChapter.chapter_number == kwargs.get("chapterNumber")
-            )  # SQLAlchemy query
-        elif "limit" in kwargs.keys():
-            query = GitaChapterModel.get_query(info).limit(kwargs.get("limit"))
-        else:
+    def resolve_chapters(self, info):
+        return GitaChapterModel.query.all()
 
-            query = GitaChapterModel.get_query(info)  # SQLAlchemy query
+    def resolve_verses(self, info):
+        return GitaVerseModel.query.all()
 
-        if "skip" in kwargs.keys():
-            query = query[kwargs.get("skip") :]
+    def resolve_translations(self, info):
+        return GitaTranslationModel.query.all()
 
-        if "first" in kwargs.keys():
-            query = query[: kwargs.get("first")]
+    def resolve_commentaries(self, info):
+        return GitaCommentaryModel.query.all()
 
-        print("--- %s Chapter seconds ---" % (time.time() - start_time))
+    def resolve_languages(self, info):
+        return GitaLanguageModel.query.all()
 
-        return query
-
-    @staticmethod
-    def resolve_verses(parent, info, **kwargs):
-
-        if "verse_id" in kwargs.keys():
-            query = GitaVerseModel.get_query(info).filter(
-                GitaVerse.id == kwargs.get("verse_id")
-            )
-        elif "limit" in kwargs.keys():
-            query = GitaVerseModel.get_query(info).limit(kwargs.get("limit"))
-        else:
-            query = GitaVerseModel.get_query(info)
-
-        if "skip" in kwargs.keys():
-            query = query[kwargs.get("skip") :]
-
-        if "first" in kwargs.keys():
-            query = query[: kwargs.get("first")]
-
-        return query
+    def resolve_authors(self, info):
+        return GitaAuthorModel.query.all()
