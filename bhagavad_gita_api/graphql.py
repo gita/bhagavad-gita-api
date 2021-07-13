@@ -50,30 +50,42 @@ class GitaVerseModel(SQLAlchemyObjectType):
 
     def resolve_translations(parent, info, **kwargs):
 
+        verse_id = (
+            db.query(GitaVerse)
+            .filter(
+                GitaVerse.verse_number == parent.verse_number,
+                GitaVerse.chapter_number == parent.chapter_number,
+            )
+            .with_entities(
+                GitaVerse.id,
+            )
+            .first()
+        )[0]
+
         if "limit" in kwargs.keys():
 
             query = (
                 GitaTranslationModel.get_query(info)
-                .filter(GitaTranslation.verse_id == parent.verse_number)
+                .filter(GitaTranslation.verse_id == verse_id)
                 .limit(kwargs.get("limit"))
             )
         elif "authorName" in kwargs.keys():
             query = (
                 GitaTranslationModel.get_query(info)
-                .filter(GitaTranslation.authorName == kwargs.get("authorName"))
-                .filter(GitaTranslation.verse_id == parent.verse_number)
+                .filter(GitaTranslation.author_name == kwargs.get("authorName"))
+                .filter(GitaTranslation.verse_id == verse_id)
             )
 
         elif "language" in kwargs.keys():
             query = (
                 GitaTranslationModel.get_query(info)
-                .filter(GitaTranslation.lang == kwargs.get("language"))
-                .filter(GitaTranslation.verse_id == parent.verse_number)
+                .filter(GitaTranslation.language == kwargs.get("language"))
+                .filter(GitaTranslation.verse_id == verse_id)
             )
 
         else:
             query = GitaTranslationModel.get_query(info).filter(
-                GitaTranslation.verse_id == parent.verse_number
+                GitaTranslation.verse_id == verse_id
             )
 
         if "skip" in kwargs.keys():
@@ -85,31 +97,42 @@ class GitaVerseModel(SQLAlchemyObjectType):
         return query
 
     def resolve_commentaries(parent, info, **kwargs):
-        start_time = time.time()
+        verse_id = (
+            db.query(GitaVerse)
+            .filter(
+                GitaVerse.verse_number == parent.verse_number,
+                GitaVerse.chapter_number == parent.chapter_number,
+            )
+            .with_entities(
+                GitaVerse.id,
+            )
+            .first()
+        )[0]
+
         if "limit" in kwargs.keys():
 
             query = (
                 GitaCommentryModel.get_query(info)
-                .filter(GitaCommentary.verse_id == parent.verse_number)
+                .filter(GitaCommentary.verse_id == verse_id)
                 .limit(kwargs.get("limit"))
             )
         elif "authorName" in kwargs.keys():
             query = (
                 GitaCommentryModel.get_query(info)
-                .filter(GitaCommentary.authorName == kwargs.get("authorName"))
-                .filter(GitaCommentary.verse_id == parent.verse_number)
+                .filter(GitaCommentary.author_name == kwargs.get("authorName"))
+                .filter(GitaCommentary.verse_id == verse_id)
             )
 
         elif "language" in kwargs.keys():
             query = (
                 GitaCommentryModel.get_query(info)
-                .filter(GitaCommentary.lang == kwargs.get("language"))
-                .filter(GitaCommentary.verse_id == parent.verse_number)
+                .filter(GitaCommentary.language == kwargs.get("language"))
+                .filter(GitaCommentary.verse_id == verse_id)
             )
 
         else:
             query = GitaCommentryModel.get_query(info).filter(
-                GitaCommentary.verse_id == parent.verse_number
+                GitaCommentary.verse_id == verse_id
             )
 
         if "skip" in kwargs.keys():
@@ -118,7 +141,6 @@ class GitaVerseModel(SQLAlchemyObjectType):
         if "first" in kwargs.keys():
             query = query[: kwargs.get("first")]
 
-        print("--- %s commentary seconds ---" % (time.time() - start_time))
         return query
 
 
@@ -149,30 +171,42 @@ class NestedVersesModel(SQLAlchemyObjectType):
 
     def resolve_translations(parent, info, **kwargs):
 
+        verse_id = (
+            db.query(GitaVerse)
+            .filter(
+                GitaVerse.verse_number == parent.verse_number,
+                GitaVerse.chapter_number == parent.chapter_number,
+            )
+            .with_entities(
+                GitaVerse.id,
+            )
+            .first()
+        )[0]
+
         if "limit" in kwargs.keys():
 
             query = (
                 GitaTranslationModel.get_query(info)
-                .filter(GitaTranslation.verse_id == parent.verse_number)
+                .filter(GitaTranslation.verse_id == verse_id)
                 .limit(kwargs.get("limit"))
             )
         elif "authorName" in kwargs.keys():
             query = (
                 GitaTranslationModel.get_query(info)
-                .filter(GitaTranslation.authorName == kwargs.get("authorName"))
-                .filter(GitaTranslation.verse_id == parent.verse_number)
+                .filter(GitaTranslation.author_name == kwargs.get("authorName"))
+                .filter(GitaTranslation.verse_id == verse_id)
             )
 
         elif "language" in kwargs.keys():
             query = (
                 GitaTranslationModel.get_query(info)
-                .filter(GitaTranslation.lang == kwargs.get("language"))
-                .filter(GitaTranslation.verse_id == parent.verse_number)
+                .filter(GitaTranslation.language == kwargs.get("language"))
+                .filter(GitaTranslation.verse_id == verse_id)
             )
 
         else:
             query = GitaTranslationModel.get_query(info).filter(
-                GitaTranslation.verse_id == parent.verse_number
+                GitaTranslation.verse_id == verse_id
             )
 
         if "skip" in kwargs.keys():
@@ -184,31 +218,42 @@ class NestedVersesModel(SQLAlchemyObjectType):
         return query
 
     def resolve_commentaries(parent, info, **kwargs):
-        start_time = time.time()
+        verse_id = (
+            db.query(GitaVerse)
+            .filter(
+                GitaVerse.verse_number == parent.verse_number,
+                GitaVerse.chapter_number == parent.chapter_number,
+            )
+            .with_entities(
+                GitaVerse.id,
+            )
+            .first()
+        )[0]
+
         if "limit" in kwargs.keys():
 
             query = (
                 GitaCommentryModel.get_query(info)
-                .filter(GitaCommentary.verse_id == parent.verse_number)
+                .filter(GitaCommentary.verse_id == verse_id)
                 .limit(kwargs.get("limit"))
             )
         elif "authorName" in kwargs.keys():
             query = (
                 GitaCommentryModel.get_query(info)
-                .filter(GitaCommentary.authorName == kwargs.get("authorName"))
-                .filter(GitaCommentary.verse_id == parent.verse_number)
+                .filter(GitaCommentary.author_name == kwargs.get("authorName"))
+                .filter(GitaCommentary.verse_id == verse_id)
             )
 
         elif "language" in kwargs.keys():
             query = (
                 GitaCommentryModel.get_query(info)
-                .filter(GitaCommentary.lang == kwargs.get("language"))
-                .filter(GitaCommentary.verse_id == parent.verse_number)
+                .filter(GitaCommentary.language == kwargs.get("language"))
+                .filter(GitaCommentary.verse_id == verse_id)
             )
 
         else:
             query = GitaCommentryModel.get_query(info).filter(
-                GitaCommentary.verse_id == parent.verse_number
+                GitaCommentary.verse_id == verse_id
             )
 
         if "skip" in kwargs.keys():
@@ -217,7 +262,6 @@ class NestedVersesModel(SQLAlchemyObjectType):
         if "first" in kwargs.keys():
             query = query[: kwargs.get("first")]
 
-        print("--- %s commentary seconds ---" % (time.time() - start_time))
         return query
 
 
@@ -225,7 +269,7 @@ class GitaChapterModel(SQLAlchemyObjectType):
 
     verses = List(
         NestedVersesModel,
-        verse_id=Int(),
+        verse_number=Int(),
         limit=Int(),
         first=Int(),
         skip=Int(),
@@ -236,7 +280,7 @@ class GitaChapterModel(SQLAlchemyObjectType):
         exclude_fields = ("verses",)
 
     def resolve_verses(parent, info, **kwargs):
-        start_time = time.time()
+        time.time()
 
         if "limit" in kwargs.keys():
             query = (
@@ -245,10 +289,10 @@ class GitaChapterModel(SQLAlchemyObjectType):
                 .limit(kwargs.get("limit"))
             )
 
-        elif "verse_id" in kwargs.keys():
+        elif "verse_number" in kwargs.keys():
             query = (
                 GitaVerseModel.get_query(info)
-                .filter(GitaVerse.verse_number == kwargs.get("verse_id"))
+                .filter(GitaVerse.verse_number == kwargs.get("verse_number"))
                 .filter(GitaVerse.chapter_number == parent.chapter_number)
             )
 
@@ -262,8 +306,6 @@ class GitaChapterModel(SQLAlchemyObjectType):
 
         if "first" in kwargs.keys():
             query = query[: kwargs.get("first")]
-
-        print("--- %s Verses seconds ---" % (time.time() - start_time))
 
         return query
 
@@ -279,7 +321,7 @@ class Query(ObjectType):
 
     verses = List(
         GitaVerseModel,
-        verse_id=Int(),
+        verse_number=Int(),
         limit=Int(),
         first=Int(),
         skip=Int(),
@@ -287,7 +329,6 @@ class Query(ObjectType):
 
     @staticmethod
     def resolve_chapters(self, info, **kwargs):
-        start_time = time.time()
 
         if "chapter_number" in kwargs.keys():
             query = GitaChapterModel.get_query(info).filter(
@@ -305,16 +346,14 @@ class Query(ObjectType):
         if "first" in kwargs.keys():
             query = query[: kwargs.get("first")]
 
-        print("--- %s Chapter seconds ---" % (time.time() - start_time))
-
         return query
 
     @staticmethod
     def resolve_verses(self, info, **kwargs):
 
-        if "verse_id" in kwargs.keys():
+        if "verse_number" in kwargs.keys():
             query = GitaVerseModel.get_query(info).filter(
-                GitaVerse.id == kwargs.get("verse_id")
+                GitaVerse.verse_number == kwargs.get("verse_number")
             )
         elif "limit" in kwargs.keys():
             query = GitaVerseModel.get_query(info).limit(kwargs.get("limit"))

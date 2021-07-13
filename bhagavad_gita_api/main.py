@@ -10,7 +10,7 @@ from bhagavad_gita_api.api import deps
 from bhagavad_gita_api.api.api_v2.api import api_router
 from bhagavad_gita_api.config import settings
 from bhagavad_gita_api.crud import get_valid_api_keys
-from bhagavad_gita_api.graphql2 import Query
+from bhagavad_gita_api.graphql import Query
 
 API_KEY_NAME = "X-API-KEY"
 api_key_header_auth = APIKeyHeader(name=API_KEY_NAME, auto_error=True)
