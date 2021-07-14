@@ -15,7 +15,7 @@
       <a href="https://github.com/gita/bhagavad-gita-api/blob/master/LICENSE">
     <img alt="LICENSE" src="https://img.shields.io/badge/License-MIT-yellow.svg?maxAge=43200">
   </a>
-  <a href="https://api.bhagavadgita.dev/docs"><img src="https://img.shields.io/badge/docs-passing-green" alt="Docs"></a>
+  <a href="https://api.bhagavadgita.io/docs"><img src="https://img.shields.io/badge/docs-passing-green" alt="Docs"></a>
   <a href="https://starcharts.herokuapp.com/gita/bhagavad-gita-api"><img alt="Stars" src="https://img.shields.io/github/stars/gita/bhagavad-gita-api.svg?style=social"></a>
 </p>
 
@@ -26,8 +26,8 @@ The Bhagavad Gita API allows any developer to use content from Gita in their app
 This API is built with FastAPI which is based on (and fully compatible with) the open standards for APIs: OpenAPI (previously known as Swagger) and JSON Schema.
 
 Documentation for this API is availaible in two interactive formats:
-- [Swagger UI](https://api.bhagavadgita.dev/docs)
-- [Redoc](https://api.bhagavadgita.dev/redoc)
+- [Swagger UI](https://api.bhagavadgita.io/docs)
+- [Redoc](https://api.bhagavadgita.io/redoc)
 
 If you are interested in using this API for your application, please
 register an account at
