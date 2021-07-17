@@ -24,6 +24,7 @@ def get_all_chapters(
         db.query(models.GitaChapter)
         .with_entities(
             models.GitaChapter.id,
+            models.GitaChapter.slug,
             models.GitaChapter.name,
             models.GitaChapter.name_transliterated,
             models.GitaChapter.name_translated,
@@ -49,6 +50,7 @@ def get_particular_chapter(chapter_number: int, db: Session = Depends(deps.get_d
         .filter(models.GitaChapter.chapter_number == chapter_number)
         .with_entities(
             models.GitaChapter.id,
+            models.GitaChapter.slug,
             models.GitaChapter.name,
             models.GitaChapter.name_transliterated,
             models.GitaChapter.name_translated,

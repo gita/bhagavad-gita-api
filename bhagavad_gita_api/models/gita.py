@@ -51,6 +51,7 @@ class GitaVerse(Base):
     __tablename__ = "gita_verses"
 
     id = Column(Integer, primary_key=True, index=True, autoincrement=True)
+    slug = Column(UnicodeText, index=True)
     verse_number = Column(Integer, index=True)
     chapter_number = Column(Integer, index=True)
     text = Column(UnicodeText, index=True)
@@ -64,6 +65,7 @@ class GitaChapter(Base):
 
     id = Column(Integer, primary_key=True, autoincrement=True)
     name = Column(UnicodeText, index=True)
+    slug = Column(UnicodeText, index=True)
     name_transliterated = Column(UnicodeText)
     name_translated = Column(UnicodeText)
     verses_count = Column(Integer)

@@ -50,17 +50,20 @@ class GitaVerseModel(SQLAlchemyObjectType):
 
     def resolve_translations(parent, info, **kwargs):
 
-        verse_id = (
-            db.query(GitaVerse)
-            .filter(
-                GitaVerse.verse_number == parent.verse_number,
-                GitaVerse.chapter_number == parent.chapter_number,
-            )
-            .with_entities(
-                GitaVerse.id,
-            )
-            .first()
-        )[0]
+        if parent.id:
+            verse_id = parent.id
+        else:
+            verse_id = (
+                db.query(GitaVerse)
+                .filter(
+                    GitaVerse.verse_number == parent.verse_number,
+                    GitaVerse.chapter_number == parent.chapter_number,
+                )
+                .with_entities(
+                    GitaVerse.id,
+                )
+                .first()
+            )[0]
 
         if "limit" in kwargs.keys():
 
@@ -201,6 +204,7 @@ class Query(ObjectType):
     verses = List(
         GitaVerseModel,
         verse_number=Int(),
+        verse_order=Int(),
         limit=Int(),
         first=Int(),
         skip=Int(),
@@ -233,6 +237,10 @@ class Query(ObjectType):
         if "verse_number" in kwargs.keys():
             query = GitaVerseModel.get_query(info).filter(
                 GitaVerse.verse_number == kwargs.get("verse_number")
+            )
+        elif "verse_order" in kwargs.keys():
+            query = GitaVerseModel.get_query(info).filter(
+                GitaVerse.id == kwargs.get("verse_order")
             )
         elif "limit" in kwargs.keys():
             query = GitaVerseModel.get_query(info).limit(kwargs.get("limit"))

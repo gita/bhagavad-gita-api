@@ -25,6 +25,7 @@ class GitaCommentary(BaseGitaModel):
 class GitaVerse(BaseGitaModel):
     verse_number: int
     chapter_number: int
+    slug: str
     text: str
     translations: List[GitaTranslation] = []
     commentaries: List[GitaCommentary] = []
@@ -32,6 +33,7 @@ class GitaVerse(BaseGitaModel):
 
 class GitaChapter(BaseGitaModel):
     name: str
+    slug: str
     name_transliterated: str
     name_translated: str
     verses_count: int
