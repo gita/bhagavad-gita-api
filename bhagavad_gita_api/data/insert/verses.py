@@ -24,6 +24,7 @@ for i in track(data, description="Loading verses"):
             text=i["text"],
             id=i["id"],
             chapter_id=i["chapter_id"],
+            slug=f'chapter-{i["chapter_number"]}-verse-{i["verse_number"]}',
         )
     )
 session.add_all(li)

@@ -26,6 +26,7 @@ for i in track(data, description="Loading chapters"):
             chapter_number=i["chapter_number"],
             name_meaning=i["name_meaning"],
             chapter_summary=i["chapter_summary"],
+            slug=f'chapter-{i["chapter_number"]}-{i["name_translation"].replace(" ", "-").lower()}',
         )
     )
 session.add_all(li)
