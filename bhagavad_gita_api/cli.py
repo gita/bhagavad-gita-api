@@ -12,11 +12,11 @@ def delete_all_data():
     """
     deletes all data
     """
-    response = typer.prompt("are you sure you want to delete all the data? [y/n]")
+    response = typer.prompt("Are you sure you want to delete all the data? [y/n]")
     if response == "y":
-        typer.echo("deleting ...")
+        typer.echo("Deleting...")
         Base.metadata.drop_all(bind=engine)
-        typer.echo("deleted.")
+        typer.echo("Deleted.")
 
 
 @app.command()
