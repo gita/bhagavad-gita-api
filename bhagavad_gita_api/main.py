@@ -3,6 +3,7 @@ import uvicorn
 from fastapi import Depends, FastAPI, HTTPException, Security, status
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.security.api_key import APIKeyHeader
+from graphql.execution.executors.asyncio import AsyncioExecutor
 from sqlalchemy.orm import Session
 from starlette.graphql import GraphQLApp
 
@@ -45,7 +46,10 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-app.add_route("/graphql", GraphQLApp(schema=graphene.Schema(query=Query)))
+app.add_route(
+    "/graphql",
+    GraphQLApp(executor_class=AsyncioExecutor, schema=graphene.Schema(query=Query)),
+)
 app.include_router(api_router, prefix=settings.API_V2_STR)
 
 

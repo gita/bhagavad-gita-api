@@ -1,5 +1,3 @@
-import time
-
 from graphene import Int, List, ObjectType, String
 from graphene_sqlalchemy import SQLAlchemyObjectType
 
@@ -162,7 +160,6 @@ class GitaChapterModel(SQLAlchemyObjectType):
         exclude_fields = ("verses",)
 
     def resolve_verses(parent, info, **kwargs):
-        time.time()
 
         if "limit" in kwargs.keys():
             query = (
