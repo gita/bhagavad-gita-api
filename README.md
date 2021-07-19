@@ -4,10 +4,10 @@
     <img src="https://raw.githubusercontent.com/gita/bhagavad-gita-api/main/.github/gita.png" alt="Logo" width="300">
   </a>
 
-  <h3 align="center">Bhagavad Gita API v2</h3>
+  <h3 align="center">Bhagavad Gita API</h3>
 
   <p align="center">
-    Code for the BhagavadGita.io v2 API, which is an app built for Gita readers by Gita readers.
+    Code for the BhagavadGita.io API, which is an app built for Gita readers by Gita readers.
     <br />
     <br />
     <img alt="GitHub issues" src="https://img.shields.io/github/issues/gita/bhagavad-gita-api">
