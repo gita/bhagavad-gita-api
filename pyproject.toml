@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "bhagavad-gita-api"
-version = "2.0.1"
+version = "2.0.2"
 description = "Bhagavad Gita API allows any developer to use content from Bhagavad Gita in their applications."
 authors = ["The Gita Initiative <contact@bhagavadgita.io>"]
 license = "MIT"
