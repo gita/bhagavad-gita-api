@@ -1,5 +1,4 @@
 import logging
-import time
 from typing import List
 
 from fastapi import APIRouter, Depends, HTTPException
@@ -95,7 +94,6 @@ async def get_particular_chapter(
 async def get_all_verses_from_particular_chapter(
     chapter_number: int, db: Session = Depends(deps.get_db)
 ):
-    start = time.time()
     verses = (
         db.query(models.GitaVerse)
         .options(
@@ -108,7 +106,6 @@ async def get_all_verses_from_particular_chapter(
     )
     if verses is None:
         raise HTTPException(status_code=404, detail="Verse not found")
-    print(f"{time.time()-start} secs")
     return verses
 
 
@@ -120,7 +117,6 @@ async def get_all_verses_from_particular_chapter(
 async def get_particular_verse_from_chapter(
     chapter_number: int, verse_number: int, db: Session = Depends(deps.get_db)
 ):
-    start = time.time()
     verse = (
         db.query(models.GitaVerse)
         .options(
@@ -133,7 +129,6 @@ async def get_particular_verse_from_chapter(
         )
         .first()
     )
-    print(f"{time.time()-start} secs")
     if verse is None:
         raise HTTPException(status_code=404, detail="Verse not found")
     return verse
