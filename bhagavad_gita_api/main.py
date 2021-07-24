@@ -1,17 +1,13 @@
-import graphene
 import uvicorn
 from fastapi import Depends, FastAPI, HTTPException, Security, status
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.security.api_key import APIKeyHeader
-from graphql.execution.executors.asyncio import AsyncioExecutor
 from sqlalchemy.orm import Session
-from starlette.graphql import GraphQLApp
 
 from bhagavad_gita_api.api import deps
 from bhagavad_gita_api.api.api_v2.api import api_router
 from bhagavad_gita_api.config import settings
 from bhagavad_gita_api.crud import get_valid_api_keys
-from bhagavad_gita_api.graphql import Query
 
 API_KEY_NAME = "X-API-KEY"
 api_key_header_auth = APIKeyHeader(name=API_KEY_NAME, auto_error=True)
@@ -46,10 +42,10 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-app.add_route(
-    "/graphql",
-    GraphQLApp(executor_class=AsyncioExecutor, schema=graphene.Schema(query=Query)),
-)
+# app.add_route(
+#     "/graphql",
+#     GraphQLApp(executor_class=AsyncioExecutor, schema=graphene.Schema(query=Query)),
+# )
 app.include_router(api_router, prefix=settings.API_V2_STR)
 
 

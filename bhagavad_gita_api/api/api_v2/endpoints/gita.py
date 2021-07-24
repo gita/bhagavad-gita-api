@@ -15,7 +15,7 @@ router = APIRouter()
 
 
 @router.get("/chapters/", response_model=List[schemas.GitaChapter], tags=["chapters"])
-def get_all_chapters(
+async def get_all_chapters(
     skip: int = 0,
     limit: int = 18,
     db: Session = Depends(deps.get_db),
@@ -44,7 +44,9 @@ def get_all_chapters(
 @router.get(
     "/chapters/{chapter_number}/", response_model=schemas.GitaChapter, tags=["chapters"]
 )
-def get_particular_chapter(chapter_number: int, db: Session = Depends(deps.get_db)):
+async def get_particular_chapter(
+    chapter_number: int, db: Session = Depends(deps.get_db)
+):
     chapter = (
         db.query(models.GitaChapter)
         .filter(models.GitaChapter.chapter_number == chapter_number)
@@ -89,7 +91,7 @@ def get_particular_chapter(chapter_number: int, db: Session = Depends(deps.get_d
     response_model=List[schemas.GitaVerse],
     tags=["verses"],
 )
-def get_all_verses_from_particular_chapter(
+async def get_all_verses_from_particular_chapter(
     chapter_number: int, db: Session = Depends(deps.get_db)
 ):
     verses = (
@@ -112,7 +114,7 @@ def get_all_verses_from_particular_chapter(
     response_model=schemas.GitaVerse,
     tags=["verses"],
 )
-def get_particular_verse_from_chapter(
+async def get_particular_verse_from_chapter(
     chapter_number: int, verse_number: int, db: Session = Depends(deps.get_db)
 ):
     verse = (

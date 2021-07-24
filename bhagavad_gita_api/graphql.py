@@ -208,7 +208,7 @@ class Query(ObjectType):
     )
 
     @staticmethod
-    def resolve_chapters(self, info, **kwargs):
+    async def resolve_chapters(self, info, **kwargs):
 
         if "chapter_number" in kwargs.keys():
             query = GitaChapterModel.get_query(info).filter(
@@ -229,7 +229,7 @@ class Query(ObjectType):
         return query
 
     @staticmethod
-    def resolve_verses(self, info, **kwargs):
+    async def resolve_verses(self, info, **kwargs):
 
         if "verse_number" in kwargs.keys():
             query = GitaVerseModel.get_query(info).filter(
