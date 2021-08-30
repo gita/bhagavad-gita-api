@@ -1,7 +1,9 @@
 import logging
+import random
+from datetime import date
 from typing import List
 
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Response
 from sqlalchemy.orm import Session, joinedload
 
 from bhagavad_gita_api.api import deps
@@ -132,3 +134,29 @@ async def get_particular_verse_from_chapter(
     if verse is None:
         raise HTTPException(status_code=404, detail="Verse not found")
     return verse
+
+
+@router.get("/set-daily-verse")
+async def set_daily_verse(db: Session = Depends(deps.get_db)):
+
+    verse_number = random.randint(1, 700)
+
+    verse = (
+        db.query(models.GitaVerse)
+        .filter(
+            models.VerseOfDay.date == date.today(),
+        )
+        .first()
+    )
+    if verse is None:
+        li = []
+
+        li.append(models.VerseOfDay(verse_number=verse_number, date=date.today()))
+        db.add_all(li)
+        db.commit()
+        print("verse set")
+        return Response(status_code=200, content="verse set")
+
+    else:
+        print("verse already set")
+        return Response(status_code=200, content="verse already set")

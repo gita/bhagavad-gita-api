@@ -1,6 +1,7 @@
 from sqlalchemy import Column, ForeignKey, Integer, String
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql.schema import Index
+from sqlalchemy.sql.sqltypes import Date
 from sqlalchemy.types import UnicodeText
 
 from bhagavad_gita_api.db.base_class import Base
@@ -86,3 +87,11 @@ class GitaChapter(Base):
     verses = relationship(GitaVerse, backref="gita_chapters", lazy="joined")
 
     __table_args__ = (Index("ix_chapter", "chapter_number", "slug"),)
+
+
+class VerseOfDay(Base):
+    __tablename__ = "verse_of_the_day"
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    verse_number = Column(Integer)
+    date = Column(Date)
