@@ -65,6 +65,8 @@ class GitaVerse(Base):
     verse_number = Column(Integer)
     chapter_number = Column(Integer)
     text = Column(UnicodeText)
+    transliteration = Column(UnicodeText)
+    word_meanings = Column(UnicodeText)
     chapter_id = Column(Integer, ForeignKey("gita_chapters.id"))
     translations = relationship(GitaTranslation, backref="gita_verses", lazy="joined")
     commentaries = relationship(GitaCommentary, backref="gita_verses", lazy="joined")
