@@ -142,7 +142,7 @@ async def set_daily_verse(db: Session = Depends(deps.get_db)):
     verse_number = random.randint(1, 700)
 
     verse = (
-        db.query(models.GitaVerse)
+        db.query(models.VerseOfDay)
         .filter(
             models.VerseOfDay.date == date.today(),
         )
@@ -150,13 +150,10 @@ async def set_daily_verse(db: Session = Depends(deps.get_db)):
     )
     if verse is None:
         li = []
-
         li.append(models.VerseOfDay(verse_number=verse_number, date=date.today()))
         db.add_all(li)
         db.commit()
-        print("verse set")
         return Response(status_code=200, content="verse set")
 
     else:
-        print("verse already set")
         return Response(status_code=200, content="verse already set")

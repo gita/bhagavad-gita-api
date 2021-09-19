@@ -39,11 +39,12 @@ class Settings(BaseSettings):
 
     SQLALCHEMY_DATABASE_URI: Optional[SqlDsn] = get_database_uri()
 
-    TESTER_API_KEY: str
+    TESTER_API_KEY: str = "Sri Har"
     # celery cronjobs
-    REDIS_BROKER: str = "redis://localhost:6379/0"
-    REDIS_BACKEND: str = "redis://localhost:6379/1"
-    CRONJOB_BASE_URL: str = "http://127.0.0.1:8000"
+    REDIS_BROKER: str = os.getenv("REDIS_BROKER")
+    REDIS_BACKEND: str = os.getenv("REDIS_BACKEND")
+    CRONJOB_BASE_URL: str = os.getenv("CRONJOB_BASE_URL")
+    X_API_KEY: str = os.getenv("X_API_KEY")
 
     class Config:
         env_file = ".env"
