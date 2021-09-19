@@ -52,7 +52,7 @@ gita-api = 'bhagavad_gita_api.main:cli'
 
 [tool.isort]
 profile = "black"
-known_third_party = ["dotenv", "fastapi", "graphene", "graphene_sqlalchemy", "pydantic", "pytz", "rich", "sqlalchemy", "typer", "uvicorn"]
+known_third_party = ["celery", "dotenv", "fastapi", "graphene", "graphene_sqlalchemy", "pydantic", "pytz", "requests", "rich", "sqlalchemy", "typer", "uvicorn"]
 
 [tool.black]
 line-length = 88

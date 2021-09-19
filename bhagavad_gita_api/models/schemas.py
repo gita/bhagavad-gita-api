@@ -40,3 +40,8 @@ class GitaChapter(BaseGitaModel):
     chapter_number: int
     name_meaning: str
     chapter_summary: str
+
+
+class VerseOfDay(BaseGitaModel):
+    id: int
+    verse_number: int
