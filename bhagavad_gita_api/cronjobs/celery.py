@@ -28,7 +28,7 @@ def set_verse():
     url = "{}/v2/set-daily-verse".format(settings.CRONJOB_BASE_URL)
     data = {
         "accept": "application/json",
-        "X-API-KEY": "Shri Hari",
+        "X-API-KEY": settings.X_API_KEY,
     }
     r = requests.get(url=url, data=data, headers=data)
     print(r)
