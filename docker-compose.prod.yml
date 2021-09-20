@@ -25,7 +25,7 @@ services:
       - $PWD/site:/srv
       - caddy_data:/data
       - caddy_config:/config
-  
+
   redis-server:
     container_name: gita-redis
     image: redis:6.0-alpine
