@@ -30,7 +30,7 @@ def set_verse():
         "accept": "application/json",
         "X-API-KEY": settings.X_API_KEY,
     }
-    r = requests.get(url=url, data=data, headers=data)
+    r = requests.post(url=url, data=data, headers=data)
     print(r)
 
 

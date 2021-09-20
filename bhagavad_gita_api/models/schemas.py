@@ -44,4 +44,4 @@ class GitaChapter(BaseGitaModel):
 
 class VerseOfDay(BaseGitaModel):
     id: int
-    verse_number: int
+    verse_order: int
