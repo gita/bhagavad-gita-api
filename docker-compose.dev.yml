@@ -15,6 +15,7 @@ services:
     tty: true
     depends_on:
       - database
+      - redis-server
     env_file:
       - .env
     restart: on-failure:5
@@ -26,4 +27,9 @@ services:
       - ./db_data:/var/lib/postgresql
     env_file:
       - .env
+    restart: on-failure:5
+
+  redis-server:
+    container_name: gita-redis
+    image: redis:6.0-alpine
     restart: on-failure:5
