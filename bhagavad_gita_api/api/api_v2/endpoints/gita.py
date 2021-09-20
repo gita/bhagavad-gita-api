@@ -136,10 +136,10 @@ async def get_particular_verse_from_chapter(
     return verse
 
 
-@router.get("/set-daily-verse")
+@router.post("/set-daily-verse/", tags=["verses"])
 async def set_daily_verse(db: Session = Depends(deps.get_db)):
 
-    verse_number = random.randint(1, 700)
+    verse_order = random.randint(1, 700)
 
     verse = (
         db.query(models.VerseOfDay)
@@ -148,12 +148,46 @@ async def set_daily_verse(db: Session = Depends(deps.get_db)):
         )
         .first()
     )
+
     if verse is None:
-        li = []
-        li.append(models.VerseOfDay(verse_number=verse_number, date=date.today()))
-        db.add_all(li)
+        verse_of_day = models.VerseOfDay(verse_order=verse_order, date=date.today())
+        db.add(verse_of_day)
         db.commit()
-        return Response(status_code=200, content="verse set")
+
+        return Response(status_code=201, content="Verse of the day has been set.")
 
     else:
-        return Response(status_code=200, content="verse already set")
+        return Response(
+            status_code=200, content="Verse of the day has already been set."
+        )
+
+
+@router.get(
+    "/get-daily-verse/",
+    response_model=schemas.GitaVerse,
+    tags=["verses"],
+)
+async def get_daily_verse(db: Session = Depends(deps.get_db)):
+    verse_of_day = (
+        db.query(models.VerseOfDay)
+        .filter(
+            models.VerseOfDay.date == date.today(),
+        )
+        .first()
+    )
+
+    if verse_of_day:
+        verse = (
+            db.query(models.GitaVerse)
+            .options(
+                joinedload(models.GitaVerse.commentaries),
+                joinedload(models.GitaVerse.translations),
+            )
+            .filter(models.GitaVerse.id == verse_of_day.verse_order)
+            .first()
+        )
+
+        if verse:
+            return verse
+
+    raise HTTPException(status_code=404, detail="Verse of the day not found.")

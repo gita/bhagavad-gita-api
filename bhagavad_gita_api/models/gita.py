@@ -93,5 +93,5 @@ class VerseOfDay(Base):
     __tablename__ = "verse_of_the_day"
 
     id = Column(Integer, primary_key=True, autoincrement=True)
-    verse_number = Column(Integer)
+    verse_order = Column(Integer)
     date = Column(Date)
