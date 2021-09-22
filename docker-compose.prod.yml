@@ -31,6 +31,28 @@ services:
     image: redis:6.0-alpine
     restart: unless-stopped
 
+  celery-worker:
+    container_name: gita-celery-worker
+    image: bhagavadgita/bhagavad-gita-api
+    command: celery -A bhagavad_gita_api.cronjobs worker -l INFO
+    depends_on:
+      - api
+      - redis-server
+    env_file:
+      - .env
+    restart: unless-stopped
+
+  celery-beat-worker:
+    container_name: gita-celery-beat-worker
+    image: bhagavadgita/bhagavad-gita-api
+    command: celery -A bhagavad_gita_api.cronjobs beat -l INFO
+    depends_on:
+      - api
+      - redis-server
+    env_file:
+      - .env
+    restart: unless-stopped
+
 volumes:
   caddy_data:
   caddy_config:
