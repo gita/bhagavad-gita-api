@@ -1,6 +1,3 @@
-import datetime
-
-import pytz
 import requests
 from celery import Celery
 from celery.schedules import crontab
