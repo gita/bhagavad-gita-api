@@ -39,7 +39,7 @@ class Settings(BaseSettings):
 
     SQLALCHEMY_DATABASE_URI: Optional[SqlDsn] = get_database_uri()
 
-    TESTER_API_KEY: str = "Sri Har"
+    TESTER_API_KEY: str
     # celery cronjobs
     REDIS_BROKER: str = os.getenv("REDIS_BROKER")
     REDIS_BACKEND: str = os.getenv("REDIS_BACKEND")
