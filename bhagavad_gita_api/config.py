@@ -39,7 +39,7 @@ class Settings(BaseSettings):
 
     SQLALCHEMY_DATABASE_URI: Optional[SqlDsn] = get_database_uri()
 
-    TESTER_API_KEY: str = os.getenv("TESTER_API_KEY")
+    TESTER_API_KEY: str
     # celery cronjobs
     CELERY_BROKER: str = os.getenv("CELERY_BROKER")
     CELERY_BACKEND: str = os.getenv("CELERY_BACKEND")
