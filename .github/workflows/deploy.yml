@@ -22,6 +22,9 @@ jobs:
           echo DB_HOST="${{ secrets.DB_HOST }}" >> .env
           echo DB_PORT="${{ secrets.DB_PORT }}" >> .env
           echo TESTER_API_KEY="${{ secrets.TESTER_API_KEY }}" >> .env
+          echo CELERY_BROKER="${{ secrets.CELERY_BROKER }}" >> .env
+          echo CELERY_BACKEND="${{ secrets.CELERY_BACKEND }}" >> .env
+          echo CRONJOB_BASE_URL="${{ secrets.CRONJOB_BASE_URL }}" >> .env
 
       - name: build docker images locally
         run: docker-compose -f docker-compose.prod.yml build --parallel

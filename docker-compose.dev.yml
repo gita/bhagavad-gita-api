@@ -15,7 +15,6 @@ services:
     tty: true
     depends_on:
       - database
-      - redis-server
     env_file:
       - .env
     restart: on-failure:5
@@ -32,4 +31,26 @@ services:
   redis-server:
     container_name: gita-redis
     image: redis:6.0-alpine
+    restart: on-failure:5
+
+  celery-worker:
+    container_name: gita-celery-worker
+    image: bhagavadgita/bhagavad-gita-api
+    command: celery -A bhagavad_gita_api.cronjobs worker -l INFO
+    depends_on:
+      - api
+      - redis-server
+    env_file:
+      - .env
+    restart: on-failure:5
+
+  celery-beat-worker:
+    container_name: gita-celery-beat-worker
+    image: bhagavadgita/bhagavad-gita-api
+    command: celery -A bhagavad_gita_api.cronjobs beat -l INFO
+    depends_on:
+      - api
+      - redis-server
+    env_file:
+      - .env
     restart: on-failure:5

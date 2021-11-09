@@ -41,10 +41,9 @@ class Settings(BaseSettings):
 
     TESTER_API_KEY: str
     # celery cronjobs
-    REDIS_BROKER: str = os.getenv("REDIS_BROKER")
-    REDIS_BACKEND: str = os.getenv("REDIS_BACKEND")
-    CRONJOB_BASE_URL: str = os.getenv("CRONJOB_BASE_URL")
-    X_API_KEY: str = os.getenv("X_API_KEY")
+    CELERY_BROKER: str = os.getenv("CELERY_BROKER")
+    CELERY_BACKEND: str = os.getenv("CELERY_BACKEND")
+    CRONJOB_BASE_URL: str = os.getenv("CRONJOB_BASE_URL", "http://api:8081")
 
     class Config:
         env_file = ".env"
