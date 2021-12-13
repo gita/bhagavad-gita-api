@@ -1,8 +1,8 @@
+import os
 import logging
 import random
 from datetime import date
 from typing import List
-
 from fastapi import APIRouter, Depends, HTTPException, Response
 from sqlalchemy import func, or_
 from sqlalchemy.orm import Session, joinedload
@@ -16,6 +16,7 @@ logger.setLevel(logging.DEBUG)
 
 router = APIRouter()
 
+sanskrit_recitation_host=os.getenv("SANSKRIT_RECITATION_HOST")
 
 @router.get("/chapters/", response_model=List[schemas.GitaChapter], tags=["chapters"])
 async def get_all_chapters(
