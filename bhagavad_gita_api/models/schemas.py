@@ -27,6 +27,7 @@ class GitaVerse(BaseGitaModel):
     chapter_number: int
     slug: str
     text: str
+    sanskrit_recitation_url: str
     transliteration: str
     word_meanings: str
     translations: List[GitaTranslation] = []
