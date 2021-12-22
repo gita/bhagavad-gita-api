@@ -1,8 +1,8 @@
-import os
 import logging
 import random
 from datetime import date
 from typing import List
+
 from fastapi import APIRouter, Depends, HTTPException, Response
 from sqlalchemy.orm import Session, joinedload
 
@@ -15,7 +15,6 @@ logger.setLevel(logging.DEBUG)
 
 router = APIRouter()
 
-sanskrit_recitation_host=os.getenv("SANSKRIT_RECITATION_HOST")
 
 @router.get("/chapters/", response_model=List[schemas.GitaChapter], tags=["chapters"])
 async def get_all_chapters(
@@ -108,9 +107,6 @@ async def get_all_verses_from_particular_chapter(
         .all()
     )
 
-    for verse in verses:
-        verse.sanskrit_recitation_url= f"{sanskrit_recitation_host}{verse.chapter_number}/{verse.verse_number}.mp3"
-
     if verses is None:
         raise HTTPException(status_code=404, detail="Verse not found")
     return verses
@@ -136,8 +132,6 @@ async def get_particular_verse_from_chapter(
         )
         .first()
     )
-    
-    verse.sanskrit_recitation_url= f"{sanskrit_recitation_host}{verse.chapter_number}/{verse.verse_number}.mp3"
 
     if verse is None:
         raise HTTPException(status_code=404, detail="Verse not found")
