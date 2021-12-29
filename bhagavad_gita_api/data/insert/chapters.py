@@ -26,6 +26,7 @@ for i in track(data, description="Loading chapters"):
             chapter_number=i["chapter_number"],
             name_meaning=i["name_meaning"],
             chapter_summary=i["chapter_summary"],
+            chapter_summary_hindi=i["chapter_summary_hindi"],
             slug=f'chapter-{i["chapter_number"]}-{i["name_translation"].replace(" ", "-").lower()}',
         )
     )

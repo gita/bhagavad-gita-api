@@ -86,6 +86,7 @@ class GitaChapter(Base):
     chapter_number = Column(Integer)
     name_meaning = Column(UnicodeText)
     chapter_summary = Column(UnicodeText)
+    chapter_summary_hindi = Column(UnicodeText)
     verses = relationship(GitaVerse, backref="gita_chapters", lazy="joined")
 
     __table_args__ = (Index("ix_chapter", "chapter_number", "slug"),)
