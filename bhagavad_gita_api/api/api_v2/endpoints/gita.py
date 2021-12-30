@@ -63,6 +63,7 @@ async def get_particular_chapter(
             models.GitaChapter.chapter_number,
             models.GitaChapter.name_meaning,
             models.GitaChapter.chapter_summary,
+            models.GitaChapter.chapter_summary_hindi,
         )
         .first()
     )
