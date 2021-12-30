@@ -12,7 +12,7 @@ def remote_txt_file(url: str) -> str:
 
 
 def gh_file_url(
-    file, owner="gita", repo="gita", branch="fix--chapter-summary-hindi", folder="data"
+    file, owner="gita", repo="gita", branch="main", folder="data"
 ):
     base = "https://raw.githubusercontent.com"
     return f"{base}/{owner}/{repo}/{branch}/{folder+'/' if folder else ''}{file}"
