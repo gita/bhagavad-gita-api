@@ -27,7 +27,6 @@ async def post_instagram(db: Session = Depends(deps.get_db)):
         verse = (
             db.query(models.GitaVerse)
             .options(
-                joinedload(models.GitaVerse.commentaries),
                 joinedload(models.GitaVerse.translations),
             )
             .filter(models.GitaVerse.id == verse_of_day.verse_order)
