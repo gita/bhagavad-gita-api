@@ -44,6 +44,7 @@ class GitaVerse(BaseGitaModel):
     transliteration: str
     translations: List[GitaTranslation] = []
     commentaries: List[GitaCommentary] = []
+    transliterations: List[GitaTransliteration] = []
 
 
 class GitaVerseV3(GitaVerse):
