@@ -16,6 +16,14 @@ class GitaTranslation(BaseGitaModel):
     language: str
 
 
+class GitaTransliteration(BaseGitaModel):
+
+    description: str
+    language: str
+    verse_id: int
+    language_id: int
+
+
 class GitaCommentary(BaseGitaModel):
     description: str
     author_name: str
@@ -31,6 +39,7 @@ class GitaVerse(BaseGitaModel):
     word_meanings: str
     translations: List[GitaTranslation] = []
     commentaries: List[GitaCommentary] = []
+    transliterations: List[GitaTransliteration] = []
 
 
 class GitaChapter(BaseGitaModel):
