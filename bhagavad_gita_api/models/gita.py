@@ -78,7 +78,6 @@ class GitaVerse(Base):
     chapter_number = Column(Integer)
     text = Column(UnicodeText)
     sanskrit_recitation_url = Column(UnicodeText)
-    transliteration = Column(UnicodeText)
     word_meanings = Column(UnicodeText)
     chapter_id = Column(Integer, ForeignKey("gita_chapters.id"))
     translations = relationship(GitaTranslation, backref="gita_verses", lazy="joined")
