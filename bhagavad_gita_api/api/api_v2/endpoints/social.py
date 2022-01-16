@@ -6,7 +6,9 @@ from sqlalchemy.orm import Session
 
 from bhagavad_gita_api.api import deps
 from bhagavad_gita_api.models import gita as models
-from bhagavad_gita_api.utils import post_on_instagram
+
+# from bhagavad_gita_api.utils import post_on_instagram,post_on_twitter
+from bhagavad_gita_api.SocialBot import SocialBot
 
 logger = logging.getLogger("api")
 logger.setLevel(logging.DEBUG)
@@ -38,13 +40,18 @@ async def post_instagram(db: Session = Depends(deps.get_db)):
             translations = db.query(models.GitaTranslation).filter(
                 models.GitaTranslation.verse_id == verse.id
             )
-            response = post_on_instagram(verse, translations)
-            if response == 200:
+            bot = SocialBot(verse, translations)
+            twitter_response = bot.post_on_twitter()
+            instagram_response = bot.post_on_instagram()
+
+            if twitter_response == 200 and instagram_response == 200:
                 return Response(
                     status_code=201,
-                    content="Verse of the day has been posted on Instagram., response from bot : {}".format(
-                        response
-                    ),
+                    content="Verse of the day has been posted on Instagram and twitter",
+                )
+            else:
+                HTTPException(
+                    status_code=500, detail="internal server error in posting "
                 )
 
     raise HTTPException(status_code=404, detail="Verse of the day not found.")
