@@ -16,6 +16,7 @@ def insert_all():
         verses,
         translations,
         commentaries,
+        transliterations,
     )
 
     # importing the modules executes the code in it

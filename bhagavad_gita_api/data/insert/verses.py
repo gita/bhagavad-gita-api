@@ -26,7 +26,6 @@ for i in track(data, description="Loading verses"):
             sanskrit_recitation_url=f'{SANSKRIT_RECITATION_HOST}/{i["chapter_number"]}/{i["verse_number"]}.mp3',
             id=i["id"],
             chapter_id=i["chapter_id"],
-            transliteration=i["transliteration"],
             word_meanings=i["word_meanings"],
             slug=f'chapter-{i["chapter_number"]}-verse-{i["verse_number"]}',
         )
