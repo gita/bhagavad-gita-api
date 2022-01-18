@@ -33,7 +33,7 @@ jobs:
           echo ACCESS_TOKEN_SECRET="${{ secrets.ACCESS_TOKEN_SECRET  }}" >> .env
           echo INSTAGRAM_USERNAME="${{ secrets.INSTAGRAM_USERNAME }}" >> .env
           echo INSTAGRAM_PASSWORD="${{ secrets.INSTAGRAM_PASSWORD }}" >> .env
-          
+
 
       - name: build docker images locally
         run: docker-compose -f docker-compose.prod.yml build --parallel
