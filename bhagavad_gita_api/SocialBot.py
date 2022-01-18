@@ -100,7 +100,7 @@ class SocialBot:
                 auto_populate_reply_metadata=True,
             )
 
-            tweet_text = "Sanskrit Text : " + self.translation_hindi
+            tweet_text = "Hindi Translation : " + self.translation_hindi
             hindi_text = api.update_status(
                 status=tweet_text,
                 in_reply_to_status_id=sanskrit_text.id,
