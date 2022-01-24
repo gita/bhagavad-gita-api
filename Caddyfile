@@ -1,5 +1,0 @@
-api.bhagavadgita.io {
-  reverse_proxy gita-api:8081  {
-    header_down Strict-Transport-Security max-age=31536000;
-   }
-}
