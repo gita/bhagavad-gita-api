@@ -83,7 +83,7 @@ class SocialBot:
             y_text += line_height
         rgb_im = img.convert("RGB")
         rgb_im.save(self.output_path, format="PNG")
-        rgb_im.save("bhagavad_gita_api/media/output/output.png")
+        rgb_im.save("bhagavad_gita_api/media/output/output.png") #for posting on instagram as I have not tested it with bytes of file. 
         self.output_path.seek(0)
         print("image created")
 
