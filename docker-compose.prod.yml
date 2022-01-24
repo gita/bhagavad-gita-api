@@ -1,0 +1,58 @@
+version: "3.7"
+
+services:
+  api:
+    container_name: gita-api
+    image: bhagavadgita/bhagavad-gita-api
+    build:
+      context: .
+      dockerfile: Dockerfile.prod
+    ports:
+      - 8081:8081
+    env_file:
+      - .env
+    restart: unless-stopped
+
+  caddy:
+    image: caddy/caddy:2.2.1-alpine
+    container_name: caddy-service
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - $PWD/Caddyfile:/etc/caddy/Caddyfile
+      - $PWD/site:/srv
+      - caddy_data:/data
+      - caddy_config:/config
+
+  redis-server:
+    container_name: gita-redis
+    image: redis:6.0-alpine
+    restart: unless-stopped
+
+  celery-worker:
+    container_name: gita-celery-worker
+    image: bhagavadgita/bhagavad-gita-api
+    command: celery -A bhagavad_gita_api.cronjobs worker -l INFO
+    depends_on:
+      - api
+      - redis-server
+    env_file:
+      - .env
+    restart: unless-stopped
+
+  celery-beat-worker:
+    container_name: gita-celery-beat-worker
+    image: bhagavadgita/bhagavad-gita-api
+    command: celery -A bhagavad_gita_api.cronjobs beat -l INFO
+    depends_on:
+      - api
+      - redis-server
+    env_file:
+      - .env
+    restart: unless-stopped
+
+volumes:
+  caddy_data:
+  caddy_config:
