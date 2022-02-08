@@ -1,12 +1,12 @@
-from io import BytesIO
-import random
-import requests
 import os
+import random
+from io import BytesIO
 
+import requests
 import tweepy
+from discord import File, RequestsWebhookAdapter, Webhook
 from PIL import Image, ImageDraw, ImageFont
 from textwrap3 import wrap
-from discord import Webhook, RequestsWebhookAdapter, File
 
 from bhagavad_gita_api.config import settings
 from bhagavad_gita_api.models import gita as models
@@ -40,18 +40,29 @@ class SocialBot:
     def create_image_post(self, text):
 
         """
-        usign pillow to add text on an image template, adjusting font
+        using pillow to add text on an image template, adjusting font
         size and line width to avoid overflows
         """
-        template_num = random.randint(1, int(requests.get(settings.SOCIAL_BOT_MEDIA_URL+'template_num.txt').content))
-        template = requests.get(settings.SOCIAL_BOT_MEDIA_URL+"templates/"+str(template_num)+".jpg",allow_redirects=True).content
-        font_path = BytesIO(requests.get(settings.SOCIAL_BOT_MEDIA_URL+"helveticaneue.ttf", allow_redirects=True).content)
+        template_num = random.randint(
+            1,
+            int(
+                requests.get(settings.SOCIAL_BOT_MEDIA_URL + "template_num.txt").content
+            ),
+        )
+        template = requests.get(
+            settings.SOCIAL_BOT_MEDIA_URL + "templates/" + str(template_num) + ".jpg",
+            allow_redirects=True,
+        ).content
+        font_path = BytesIO(
+            requests.get(
+                settings.SOCIAL_BOT_MEDIA_URL + "helveticaneue.ttf",
+                allow_redirects=True,
+            ).content
+        )
         img = Image.open(BytesIO(template))
         draw = ImageDraw.Draw(img)
         font_size = 40
-        font = ImageFont.truetype(
-            font_path, font_size
-        )
+        font = ImageFont.truetype(font_path, font_size)
 
         lines = wrap(text=text, width=50)
 
@@ -60,11 +71,8 @@ class SocialBot:
         text_height = len(lines) * line_height
 
         while text_height > 250:
-            print("in the loop")
             font_size -= 5
-            font = ImageFont.truetype(
-                font_path, font_size
-            )
+            font = ImageFont.truetype(font_path, font_size)
             line_height -= 10
             text_height = len(lines) * line_height
 
@@ -83,7 +91,9 @@ class SocialBot:
             y_text += line_height
         rgb_im = img.convert("RGB")
         rgb_im.save(self.output_path, format="PNG")
-        rgb_im.save("bhagavad_gita_api/media/output/output.png") #for posting on instagram as I have not tested it with bytes of file. 
+        rgb_im.save(
+            "bhagavad_gita_api/media/output/output.png"
+        )  # for posting on instagram as I have not tested it with bytes of file.
         self.output_path.seek(0)
         print("image created")
 
@@ -94,9 +104,11 @@ class SocialBot:
             Sanskrit text : {self.sanskrit_text} \n
             Hindi translation: {self.translation_hindi}\n
             """
-        controller = Webhook.from_url(settings.DISCORD_WEBHOOK, adapter=RequestsWebhookAdapter())
+        controller = Webhook.from_url(
+            settings.DISCORD_WEBHOOK, adapter=RequestsWebhookAdapter()
+        )
         try:
-            controller.send(post_text,file=File(self.output_path, "output.png"))
+            controller.send(post_text, file=File(self.output_path, "output.png"))
             print("Posted")
             return 200
         except Exception as e:
@@ -110,7 +122,7 @@ class SocialBot:
             settings.TWITTER["ACCESS_TOKEN"], settings.TWITTER["ACCESS_TOKEN_SECRET"]
         )
         api = tweepy.API(auth)
-        media = api.media_upload(file=self.output_path, filename='output.png')
+        media = api.media_upload(file=self.output_path, filename="output.png")
         try:
             tweet_text = "Glories To Shri Hari"
             post_result = api.update_status(
@@ -148,15 +160,16 @@ class SocialBot:
             caption = f"""
             Glories To Shri Hari \n
             Sanskrit text : {self.sanskrit_text} \n
-            Hindi translation: {self.translation_hindi}\n
+            Hindi translation: {self.translation_hindi}\n\n
+            #krishna #radha #radhakrishna #radharani #krishnaconsciousness #harekrishna #krishnabalaram #jaishrikrishna #hari #haribol #radhe #radheradhe #lordkrishna #radhekrishna #vishnu #jagannath #iskcon #bhakti #bankebihari #jaishriram #shyam #govinda #gopal #radheshyam #radhe #kanhaiya #bhagavadgita
+
             """
             bot = MyIGBot(
                 settings.INSTAGRAM["USERNAME"], settings.INSTAGRAM["PASSWORD"]
             )
-            response = bot.upload_post(
+            bot.upload_post(
                 "bhagavad_gita_api/media/output/output.png", caption=caption
             )
-            print(response)  # if the response code is 200 that means ok
 
             return 200
         except Exception:
