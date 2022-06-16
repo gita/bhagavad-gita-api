@@ -19,7 +19,7 @@ classifiers = [
 ]
 
 [tool.poetry.dependencies]
-python = "^3.9"
+python = "^3.8"
 fastapi = "^0.65.2"
 graphene-elastic = "^0.7"
 psycopg2-pgevents = "^0.2.2"

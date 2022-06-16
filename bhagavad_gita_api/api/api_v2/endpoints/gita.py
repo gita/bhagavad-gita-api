@@ -190,6 +190,7 @@ async def get_daily_verse(db: Session = Depends(deps.get_db)):
         )
 
         if verse:
+            print(verse)
             return verse
 
     raise HTTPException(status_code=404, detail="Verse of the day not found.")
