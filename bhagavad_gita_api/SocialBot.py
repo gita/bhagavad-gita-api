@@ -36,7 +36,7 @@ class SocialBot:
     def create_image_post(self, text):
 
         """
-        usign pillow to add text on an image template, adjusting font
+        using pillow to add text on an image template, adjusting font
         size and line width to avoid overflows
         """
         img = Image.open("bhagavad_gita_api/media/images/template.jpg")

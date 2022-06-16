@@ -42,12 +42,12 @@ async def post_instagram(db: Session = Depends(deps.get_db)):
             )
             bot = SocialBot(verse, translations)
             twitter_response = bot.post_on_twitter()
-            instagram_response = bot.post_on_instagram()
+            # instagram_response = bot.post_on_instagram()
 
-            if twitter_response == 200 and instagram_response == 200:
+            if twitter_response == 200:
                 return Response(
                     status_code=201,
-                    content="Verse of the day has been posted on Instagram and twitter",
+                    content="Verse of the day has been posted on twitter",
                 )
             else:
                 HTTPException(
