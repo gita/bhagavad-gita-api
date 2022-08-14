@@ -19,7 +19,7 @@ classifiers = [
 ]
 
 [tool.poetry.dependencies]
-python = "^3.9"
+python = "^3.8"
 fastapi = "^0.65.2"
 graphene-elastic = "^0.7"
 psycopg2-pgevents = "^0.2.2"
@@ -35,6 +35,10 @@ typer = "^0.3.2"
 gunicorn = "^20.1.0"
 celery = "^5.1.2"
 redis = "^3.5.3"
+textwrap3 = "^0.9.2"
+Pillow = "^9.0.0"
+tweepy = "^4.4.0"
+bs4 = "^0.0.1"
 
 [tool.poetry.dev-dependencies]
 pre-commit = "^2.13.0"
@@ -54,7 +58,7 @@ gita-api = 'bhagavad_gita_api.main:cli'
 
 [tool.isort]
 profile = "black"
-known_third_party = ["celery", "dotenv", "fastapi", "graphene", "graphene_sqlalchemy", "pydantic", "pytz", "requests", "rich", "sqlalchemy", "typer", "uvicorn"]
+known_third_party = ["PIL", "bs4", "celery", "dotenv", "fastapi", "graphene", "graphene_sqlalchemy", "pydantic", "pytz", "requests", "rich", "sqlalchemy", "textwrap3", "tweepy", "typer", "uvicorn"]
 
 [tool.black]
 line-length = 88

@@ -25,6 +25,15 @@ jobs:
           echo CELERY_BROKER="${{ secrets.CELERY_BROKER }}" >> .env
           echo CELERY_BACKEND="${{ secrets.CELERY_BACKEND }}" >> .env
           echo CRONJOB_BASE_URL="${{ secrets.CRONJOB_BASE_URL }}" >> .env
+          echo CONSUMER_KEY="${{ secrets.CONSUMER_KEY }}" >> .env
+          echo CONSUMER_SECRET="${{ secrets.CONSUMER_SECRET }}" >> .env
+          echo CLIENT_ID="${{ secrets.CLIENT_ID }}" >> .env
+          echo CLIENT_SECRET="${{ secrets.CLIENT_SECRET }}" >> .env
+          echo ACCESS_TOKEN="${{ secrets.ACCESS_TOKEN }}" >> .env
+          echo ACCESS_TOKEN_SECRET="${{ secrets.ACCESS_TOKEN_SECRET  }}" >> .env
+          echo INSTAGRAM_USERNAME="${{ secrets.INSTAGRAM_USERNAME }}" >> .env
+          echo INSTAGRAM_PASSWORD="${{ secrets.INSTAGRAM_PASSWORD }}" >> .env
+
 
       - name: build docker images locally
         run: docker-compose -f docker-compose.prod.yml build --parallel

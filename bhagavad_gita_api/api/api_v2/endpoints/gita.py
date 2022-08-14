@@ -4,6 +4,7 @@ from datetime import date
 from typing import List
 
 from fastapi import APIRouter, Depends, HTTPException, Response
+from sqlalchemy import func, or_
 from sqlalchemy.orm import Session, joinedload
 
 from bhagavad_gita_api.api import deps
@@ -34,6 +35,7 @@ async def get_all_chapters(
             models.GitaChapter.chapter_number,
             models.GitaChapter.name_meaning,
             models.GitaChapter.chapter_summary,
+            models.GitaChapter.chapter_summary_hindi,
         )
         .order_by(models.GitaChapter.id.asc())
         .offset(skip)
@@ -62,6 +64,7 @@ async def get_particular_chapter(
             models.GitaChapter.chapter_number,
             models.GitaChapter.name_meaning,
             models.GitaChapter.chapter_summary,
+            models.GitaChapter.chapter_summary_hindi,
         )
         .first()
     )
@@ -190,6 +193,37 @@ async def get_daily_verse(db: Session = Depends(deps.get_db)):
         )
 
         if verse:
+            print(verse)
             return verse
 
     raise HTTPException(status_code=404, detail="Verse of the day not found.")
+
+
+@router.get("/search", response_model=List[schemas.GitaVerseBase], tags=["search"])
+def search_gita(query: str, db: Session = Depends(deps.get_db)):
+    res = (
+        db.query(models.GitaVerse)
+        .filter(
+            or_(
+                models.GitaVerse.transliteration.op("@@")(func.plainto_tsquery(query)),
+                models.GitaVerse.word_meanings.op("@@")(func.plainto_tsquery(query)),
+            )
+        )
+        .all()
+    )
+    res += (
+        db.query(models.GitaVerse)
+        .join(models.GitaTranslation)
+        .filter(
+            or_(
+                models.GitaTranslation.author_name == "Swami Sivananda",
+                models.GitaTranslation.author_name == "Dr. S. Sankaranarayan",
+                models.GitaTranslation.author_name == "Shri Purohit Swami",
+            )
+        )
+        .filter(
+            models.GitaTranslation.description.op("@@")(func.plainto_tsquery(query))
+        )
+        .all()
+    )
+    return set(res)

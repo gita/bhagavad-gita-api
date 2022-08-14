@@ -42,6 +42,15 @@ class GitaVerse(BaseGitaModel):
     transliterations: List[GitaTransliteration] = []
 
 
+class GitaVerseBase(BaseGitaModel):
+    verse_number: int
+    chapter_number: int
+    slug: str
+    text: str
+    transliteration: str
+    word_meanings: str
+
+
 class GitaChapter(BaseGitaModel):
     name: str
     slug: str
@@ -51,6 +60,7 @@ class GitaChapter(BaseGitaModel):
     chapter_number: int
     name_meaning: str
     chapter_summary: str
+    chapter_summary_hindi: str
 
 
 class VerseOfDay(BaseGitaModel):

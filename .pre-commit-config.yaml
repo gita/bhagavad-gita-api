@@ -29,10 +29,10 @@ repos:
       - id: isort
 
   - repo: https://github.com/ambv/black
-    rev: 21.6b0
+    rev: 22.3.0
     hooks:
       - id: black
-        language_version: python3.8
+        language_version: python3
 
   - repo: local
     hooks:
@@ -47,3 +47,4 @@ repos:
     rev: v0.27.1
     hooks:
       - id: markdownlint
+        args: [-s, .markdownlint.rb]
