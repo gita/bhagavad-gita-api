@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Optional
 
 from pydantic import BaseModel
 
@@ -35,11 +35,15 @@ class GitaVerse(BaseGitaModel):
     chapter_number: int
     slug: str
     text: str
-    sanskrit_recitation_url: str
+    sanskrit_recitation_url: Optional[str]
     word_meanings: str
+    transliteration: str
     translations: List[GitaTranslation] = []
     commentaries: List[GitaCommentary] = []
-    transliterations: List[GitaTransliteration] = []
+
+
+class GitaVerseV3(GitaVerse):
+    transliterations: Optional[List[GitaTransliteration]]
 
 
 class GitaVerseBase(BaseGitaModel):

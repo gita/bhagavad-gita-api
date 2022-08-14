@@ -15,15 +15,21 @@ content = get_file("transliteration.json")
 
 li = []
 data = json.loads(content)
+transliterations = (
+    session.query(GitaTransliteration).with_entities(GitaTransliteration.id).all()
+)
+transliterations = [i[0] for i in transliterations]
 
 for i in track(data, description="Loading transliterations"):
-    li.append(
-        GitaTransliteration(
-            description=i["description"],
-            language=i["lang"],
-            verse_id=i["verseNumber"],
-            language_id=i["language_id"],
+    if i["id"] not in transliterations and i["lang"] != "english":
+        li.append(
+            GitaTransliteration(
+                description=i["description"],
+                language=i["lang"],
+                verse_id=i["verseNumber"],
+                language_id=i["language_id"],
+                id=i["id"],
+            )
         )
-    )
 session.add_all(li)
 session.commit()

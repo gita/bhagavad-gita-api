@@ -6,6 +6,7 @@ from sqlalchemy.orm import Session
 
 from bhagavad_gita_api.api import deps
 from bhagavad_gita_api.api.api_v2.api import api_router
+from bhagavad_gita_api.api.api_v3.api import api_router_v3
 from bhagavad_gita_api.config import settings
 from bhagavad_gita_api.crud import get_valid_api_keys
 
@@ -50,6 +51,11 @@ async def index():
 app.include_router(
     api_router,
     prefix=settings.API_V2_STR,
+    dependencies=[Security(get_api_key, scopes=["openid"])],
+)
+app.include_router(
+    api_router_v3,
+    prefix=settings.API_V3_STR,
     dependencies=[Security(get_api_key, scopes=["openid"])],
 )
 

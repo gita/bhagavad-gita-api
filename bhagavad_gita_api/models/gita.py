@@ -80,10 +80,11 @@ class GitaVerse(Base):
     sanskrit_recitation_url = Column(UnicodeText)
     word_meanings = Column(UnicodeText)
     chapter_id = Column(Integer, ForeignKey("gita_chapters.id"))
-    translations = relationship(GitaTranslation, backref="gita_verses", lazy="joined")
-    commentaries = relationship(GitaCommentary, backref="gita_verses", lazy="joined")
+    translations = relationship(GitaTranslation, backref="gita_verses", lazy="dynamic")
+    commentaries = relationship(GitaCommentary, backref="gita_verses", lazy="dynamic")
+    transliteration = Column(UnicodeText)
     transliterations = relationship(
-        GitaTransliteration, backref="gita_verses", lazy="joined"
+        GitaTransliteration, backref="gita_verses", lazy="dynamic"
     )
 
     __table_args__ = (Index("ix_verse", "chapter_number", "verse_number", "slug"),)

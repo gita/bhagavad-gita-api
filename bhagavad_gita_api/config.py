@@ -36,6 +36,7 @@ class Settings(BaseSettings):
     secret_key: bytes = os.urandom(32)
 
     API_V2_STR: str = "/v2"
+    API_V3_STR: str = "/v3"
 
     SQLALCHEMY_DATABASE_URI: Optional[SqlDsn] = get_database_uri()
 
