@@ -31,6 +31,28 @@ class TranslationAuthor(enum.Enum):
     english_swami_purohit = "Shri Purohit Swami"
 
 
+class TransliterationLanguage(enum.Enum):
+    sanskrit = "sanskrit"
+    telugu = "telugu"
+    tamil = "tamil"
+    punjabi = "punjabi"
+    oriya = "oriya"
+    malayalam = "malayalam"
+    kannada = "kannada"
+    gujarati = "gujarati"
+    bengali = "bengali"
+
+
+class CommentaryAuthor(enum.Enum):
+    shri_abhinav_gupta = "Sri Abhinavgupta"
+    shri_ananddiri = "Sri Anandgiri"
+    shri_dhanpati = "Sri Dhanpati"
+    shri_jayatritha = "Sri Jayatritha"
+    sri_madhavacharya = "Sri Madhavacharya"
+    sri_madhusudan_sarasvari = "Sri Madhusudan Saraswati"
+    sri_neelkanth = "Sri Neelkanth"
+
+
 @router.get(
     "/chapters/",
     response_model=List[schemas.GitaChapter],
@@ -122,9 +144,9 @@ async def get_particular_chapter(
 )
 async def get_all_verses_from_particular_chapter(
     chapter_number: int,
-    language: str,
+    transliteration_language: TransliterationLanguage,
     translation_author: TranslationAuthor,
-    commentary_language: str,
+    commentarty_author: CommentaryAuthor,
     db: Session = Depends(deps.get_db),
 ):
     verses = (
@@ -146,18 +168,22 @@ async def get_all_verses_from_particular_chapter(
                 word_meanings=verse.word_meanings,
                 sanskrit_recitation_url=verse.sanskrit_recitation_url,
                 transliterations=verse.transliterations.filter(
-                    models.GitaTransliteration.language == language
+                    models.GitaTransliteration.language
+                    == transliteration_language.value
                 ).all(),
                 # commentaries = [verse.commentaries.filter().first()],
                 translations=[
                     verse.translations.filter(
-                        models.GitaCommentary.author_name == translation_author.value
+                        models.GitaTranslation.author_name == translation_author.value
+                    ).first()
+                ],
+                commentaries=[
+                    verse.commentaries.filter(
+                        models.GitaCommentary.author_name == commentarty_author.value
                     ).first()
                 ],
             )
         )
-
-    print(res[0].transliterations)
 
     if verses is None:
         raise HTTPException(status_code=404, detail="Verse not found")
@@ -170,15 +196,15 @@ async def get_all_verses_from_particular_chapter(
     tags=["verses_v3"],
 )
 async def get_particular_verse_from_chapter(
-    chapter_number: int, verse_number: int, db: Session = Depends(deps.get_db)
+    chapter_number: int,
+    verse_number: int,
+    transliteration_language: TransliterationLanguage,
+    translation_author: TranslationAuthor,
+    commentarty_author: CommentaryAuthor,
+    db: Session = Depends(deps.get_db),
 ):
     verse = (
         db.query(models.GitaVerse)
-        .options(
-            joinedload(models.GitaVerse.commentaries),
-            joinedload(models.GitaVerse.translations),
-            joinedload(models.GitaVerse.transliterations),
-        )
         .filter(
             models.GitaVerse.chapter_number == chapter_number,
             models.GitaVerse.verse_number == verse_number,
@@ -188,7 +214,56 @@ async def get_particular_verse_from_chapter(
 
     if verse is None:
         raise HTTPException(status_code=404, detail="Verse not found")
-    return verse
+
+    return schemas.GitaVerseV3(
+        id=verse.id,
+        verse_number=verse.verse_number,
+        chapter_number=verse.chapter_number,
+        slug=verse.slug,
+        text=verse.text,
+        transliteration=verse.transliteration,
+        word_meanings=verse.word_meanings,
+        sanskrit_recitation_url=verse.sanskrit_recitation_url,
+        transliterations=verse.transliterations.filter(
+            models.GitaTransliteration.language == transliteration_language.value
+        ).all(),
+        translations=[
+            verse.translations.filter(
+                models.GitaTranslation.author_name == translation_author.value
+            ).first()
+        ],
+        commentaries=[
+            verse.commentaries.filter(
+                models.GitaCommentary.author_name == commentarty_author.value
+            ).first()
+        ],
+    )
+
+
+@router.get(
+    "/translations/authors/all/",
+    response_model=List[schemas.GitaAuthor],
+    tags=["translations_v3"],
+)
+async def get_unique_translation_authors(db: Session = Depends(deps.get_db)):
+    authors = (
+        db.query(models.GitaTranslation).distinct(models.GitaTranslation.author_name)
+    ).all()
+
+    return [schemas.GitaAuthor(author_name=x.author_name) for x in authors]
+
+
+@router.get(
+    "/commetaries/authors/all/",
+    response_model=List[schemas.GitaAuthor],
+    tags=["translations_v3"],
+)
+async def get_unique_commentary_authors(db: Session = Depends(deps.get_db)):
+    authors = (
+        db.query(models.GitaCommentary).distinct(models.GitaCommentary.author_name)
+    ).all()
+
+    return [schemas.GitaAuthor(author_name=x.author_name) for x in authors]
 
 
 @router.post(

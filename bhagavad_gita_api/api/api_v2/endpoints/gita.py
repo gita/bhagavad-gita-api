@@ -101,10 +101,6 @@ async def get_all_verses_from_particular_chapter(
 ):
     verses = (
         db.query(models.GitaVerse)
-        .options(
-            joinedload(models.GitaVerse.commentaries),
-            joinedload(models.GitaVerse.translations),
-        )
         .order_by(models.GitaVerse.id.asc())
         .filter(models.GitaVerse.chapter_number == chapter_number)
         .all()
@@ -112,7 +108,23 @@ async def get_all_verses_from_particular_chapter(
 
     if verses is None:
         raise HTTPException(status_code=404, detail="Verse not found")
-    return verses
+    res = []
+    for verse in verses:
+        res.append(
+            schemas.GitaVerse(
+                id=verse.id,
+                verse_number=verse.verse_number,
+                chapter_number=verse.chapter_number,
+                slug=verse.slug,
+                text=verse.text,
+                transliteration=verse.transliteration,
+                word_meanings=verse.word_meanings,
+                sanskrit_recitation_url=verse.sanskrit_recitation_url,
+                translations=verse.translations.all(),
+                commentaries=verse.commentaries.all(),
+            )
+        )
+    return res
 
 
 @router.get(
@@ -125,10 +137,6 @@ async def get_particular_verse_from_chapter(
 ):
     verse = (
         db.query(models.GitaVerse)
-        .options(
-            joinedload(models.GitaVerse.commentaries),
-            joinedload(models.GitaVerse.translations),
-        )
         .filter(
             models.GitaVerse.chapter_number == chapter_number,
             models.GitaVerse.verse_number == verse_number,
@@ -138,7 +146,18 @@ async def get_particular_verse_from_chapter(
 
     if verse is None:
         raise HTTPException(status_code=404, detail="Verse not found")
-    return verse
+    return schemas.GitaVerse(
+        id=verse.id,
+        verse_number=verse.verse_number,
+        chapter_number=verse.chapter_number,
+        slug=verse.slug,
+        text=verse.text,
+        transliteration=verse.transliteration,
+        word_meanings=verse.word_meanings,
+        sanskrit_recitation_url=verse.sanskrit_recitation_url,
+        translations=verse.translations.all(),
+        commentaries=verse.commentaries.all(),
+    )
 
 
 @router.post("/set-daily-verse/", tags=["verses"])

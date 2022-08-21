@@ -70,3 +70,7 @@ class GitaChapter(BaseGitaModel):
 class VerseOfDay(BaseGitaModel):
     id: int
     verse_order: int
+
+
+class GitaAuthor(BaseModel):
+    author_name: Optional[str]
