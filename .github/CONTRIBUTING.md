@@ -7,7 +7,7 @@ Thank you for your interest and welcome here!
 To work on this project you will need the following software installed in your machine.
 
 - git (version control)
-- python3.8 or above
+- python3.10 or above
 - poetry (package management)
 - make (command line utils)
 - docker (optional, if you want to build docker images)
