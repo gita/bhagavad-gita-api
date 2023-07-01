@@ -35,6 +35,18 @@ class GitaTranslation(Base):
     __table_args__ = (Index("ix_translation", "author_name", "language", "verse_id"),)
 
 
+class GitaTransliteration(Base):
+    __tablename__ = "gita_transliterations"
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    description = Column(UnicodeText)
+    language = Column(String(100))
+    verse_id = Column(Integer, ForeignKey("gita_verses.id"))
+    language_id = Column(Integer, ForeignKey("gita_languages.id"))
+
+    __table_args__ = (Index("ix_transliteration", "language", "verse_id"),)
+
+
 class GitaLanguage(Base):
     __tablename__ = "gita_languages"
 
@@ -65,11 +77,15 @@ class GitaVerse(Base):
     verse_number = Column(Integer)
     chapter_number = Column(Integer)
     text = Column(UnicodeText)
-    transliteration = Column(UnicodeText)
+    sanskrit_recitation_url = Column(UnicodeText)
     word_meanings = Column(UnicodeText)
     chapter_id = Column(Integer, ForeignKey("gita_chapters.id"))
-    translations = relationship(GitaTranslation, backref="gita_verses", lazy="joined")
-    commentaries = relationship(GitaCommentary, backref="gita_verses", lazy="joined")
+    translations = relationship(GitaTranslation, backref="gita_verses", lazy="dynamic")
+    commentaries = relationship(GitaCommentary, backref="gita_verses", lazy="dynamic")
+    transliteration = Column(UnicodeText)
+    transliterations = relationship(
+        GitaTransliteration, backref="gita_verses", lazy="dynamic"
+    )
 
     __table_args__ = (Index("ix_verse", "chapter_number", "verse_number", "slug"),)
 

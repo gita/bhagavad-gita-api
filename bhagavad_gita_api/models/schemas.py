@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Optional
 
 from pydantic import BaseModel
 
@@ -16,6 +16,14 @@ class GitaTranslation(BaseGitaModel):
     language: str
 
 
+class GitaTransliteration(BaseGitaModel):
+
+    description: str
+    language: str
+    verse_id: int
+    language_id: int
+
+
 class GitaCommentary(BaseGitaModel):
     description: str
     author_name: str
@@ -27,10 +35,16 @@ class GitaVerse(BaseGitaModel):
     chapter_number: int
     slug: str
     text: str
+    sanskrit_recitation_url: Optional[str]
     transliteration: str
     word_meanings: str
     translations: List[GitaTranslation] = []
     commentaries: List[GitaCommentary] = []
+    transliterations: List[GitaTransliteration] = []
+
+
+class GitaVerseV3(GitaVerse):
+    transliterations: Optional[List[GitaTransliteration]]
 
 
 class GitaVerseBase(BaseGitaModel):
@@ -57,3 +71,7 @@ class GitaChapter(BaseGitaModel):
 class VerseOfDay(BaseGitaModel):
     id: int
     verse_order: int
+
+
+class GitaAuthor(BaseModel):
+    author_name: Optional[str]

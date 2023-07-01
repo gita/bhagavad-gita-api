@@ -36,6 +36,7 @@ class Settings(BaseSettings):
     secret_key: bytes = os.urandom(32)
 
     API_V2_STR: str = "/v2"
+    API_V3_STR: str = "/v3"
 
     SQLALCHEMY_DATABASE_URI: Optional[SqlDsn] = get_database_uri()
 
@@ -68,7 +69,7 @@ settings = Settings()
 if not settings.SQLALCHEMY_DATABASE_URI:
     print(
         "No SQLALCHEMY_DATABASE_URI found. \
-        \nUsing default set Sqlite database gita.db. This is not good for running in production!"
+        \nUsing in-file Sqlite database. This is not good for running in production!"
     )
     settings.SQLALCHEMY_DATABASE_URI = "sqlite:///{}?{}".format(
         os.path.join(os.path.dirname(os.path.realpath(__file__)), "gita.db"),

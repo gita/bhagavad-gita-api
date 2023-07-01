@@ -12,16 +12,19 @@ session = Session()
 
 content = get_file("languages.json")
 
-
 li = []
 data = json.loads(content)
 
+languages = session.query(GitaLanguage).with_entities(GitaLanguage.id).all()
+languages = [i[0] for i in languages]
 for i in track(data, description="Loading languages"):
-    li.append(
-        GitaLanguage(
-            language=i["language"],
-            id=i["id"],
+
+    if not i["id"] in languages:
+        li.append(
+            GitaLanguage(
+                language=i["language"],
+                id=i["id"],
+            )
         )
-    )
 session.add_all(li)
 session.commit()
