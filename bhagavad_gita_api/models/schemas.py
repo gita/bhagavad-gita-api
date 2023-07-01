@@ -35,7 +35,11 @@ class GitaVerse(BaseGitaModel):
     chapter_number: int
     slug: str
     text: str
+<<<<<<< HEAD
     sanskrit_recitation_url: Optional[str]
+=======
+    transliteration: str
+>>>>>>> edc179c (rebase with main)
     word_meanings: str
     transliteration: str
     translations: List[GitaTranslation] = []

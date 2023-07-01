@@ -105,7 +105,6 @@ async def get_all_verses_from_particular_chapter(
         .filter(models.GitaVerse.chapter_number == chapter_number)
         .all()
     )
-
     if verses is None:
         raise HTTPException(status_code=404, detail="Verse not found")
     res = []
