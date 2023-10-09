@@ -7,7 +7,7 @@
   <h3 align="center">Bhagavad Gita API</h3>
 
   <p align="center">
-    Code for the BhagavadGita.io API, which is an app built for Gita readers by Gita readers.
+    Code for the BhagavadGita.io API, which is an app built for The Gita readers by The Gita readers.
     <br />
     <br />
     <img alt="GitHub issues" src="https://img.shields.io/github/issues/gita/bhagavad-gita-api">
@@ -23,7 +23,7 @@
 
 ## Usage
 
-The Bhagavad Gita API allows any developer to use content from Gita in their apps.
+The Bhagavad Gita API allows any developer to use content from The Gita in their apps.
 This API is built with FastAPI which is based on (and fully compatible with) the open standards for APIs: OpenAPI (previously known as Swagger) and JSON Schema.
 
 Documentation for this API is availaible in two interactive formats:
@@ -43,7 +43,7 @@ Here is a list of interesting projects using this API.
 - [BhagavadGita.io](https://bhagavadgita.io)
 - [Android App](https://play.google.com/store/apps/details?id=com.hanuman.bhagavadgita)
 
-Have you build something with this API ? Open a "Show and tell" discussion. The maintainers will feature your project on the README if they find it interesting.
+Have you ever thought of building anything with this API ? Open a "Show and tell" discussion. The maintainers will feature your project on the README file if they find it interesting.
 
 ## Self Hosting
 <!-- markdownlint-enable -->
@@ -51,17 +51,17 @@ Have you build something with this API ? Open a "Show and tell" discussion. The 
 The official API is free to use for all.
 But If you wish you can self host anywhere you want.
 
-If you want to deploy your own instance,You can deploy
+If you want to deploy your own instance, you can deploy
 the API server on your system or VPS.
 
 - Using [`pipx`](https://pypa.github.io/pipx/installation/)
-  > **Note** If you dont have `pipx`, just `pip install pipx`
+  > **Note** If you don't have `pipx`, just run `pip install pipx` command
 
     ```shell
     pipx run bhagavad-gita-api
     ```
 
-- Or using [`docker`](https://www.docker.com/)
+- Or use [`docker`](https://www.docker.com/)
 
     ```shell
     docker run -it -p 8081:8081 --env-file=.env bhagavadgita/bhagavad-gita-api
@@ -69,15 +69,15 @@ the API server on your system or VPS.
 
 <!-- markdownlint-disable -->
 Now open http://localhost:8081/docs to see docs.
-To stop the server press <kbd>Ctrl</kbd> + <kbd>C</kbd> on your keyboard.
+To stop the server, press <kbd>Ctrl</kbd> + <kbd>C</kbd> on your keyboard.
 <!-- markdownlint-enable -->
 
 By default an in-memory SQLite database is used.
-But you configure to use any SQL database of your choice.
+But you may configure any SQL database of your choice to use.
 The official version uses PostgreSQL.
 
 Looking to deploy on a cloud platform ?
-We have detailed docs to deploy to the following platforms:
+We have detailed docs to deploy on the following platforms:
 
 - [Heroku](https://github.com/gita/bhagavad-gita-api/wiki/Heroku)
 - [Deta](https://github.com/gita/bhagavad-gita-api/wiki/Deta)
@@ -94,10 +94,10 @@ Here is the list of supported environment variables.
 | `SQLALCHEMY_DATABASE_URI` | The DSN for your database connection. | `sqlite://` (in memory SQLite db)|
 <!-- markdownlint-enable -->
 
-If you want to configure your deployment even more,
-then please take a look at module [`config.py`](bhagavad_gita_api/config.py).
+If you want to configure your deployment with more details,
+then you may have a look at module [`config.py`](bhagavad_gita_api/config.py).
 
-To set the environment variables, you may simply use a `.env` file where you
+To set the environment variables, you may simply use a `.env` file where you will
 specify the values in the format of `KEY=VALUE`.
 
 ## Development
@@ -111,7 +111,7 @@ To get started with developing this API, please read the [contributing guide](.g
 ## Community
 
 Join the [Discord chat server](https://discord.gg/gX8dstApZX) and
-hang out with others in the community.
+hang out with other fellow Bhagvad Gita readers in the community.
 
 You can also use [GitHub Discussions](https://github.com/gita/bhagavad-gita-api/discussions)
 to ask questions or tell us about
