@@ -7,7 +7,7 @@
   <h3 align="center">Bhagavad Gita API</h3>
 
   <p align="center">
-    Code for the BhagavadGita.io API, which is an app built for Gita readers by Gita readers.
+    Code for the BhagavadGita.io API, which is an app built for The Gita readers by The Gita readers.
     <br />
     <br />
     <img alt="GitHub issues" src="https://img.shields.io/github/issues/gita/bhagavad-gita-api">
@@ -23,7 +23,7 @@
 
 ## Usage
 
-The Bhagavad Gita API allows any developer to use content from Gita in their apps.
+The Bhagavad Gita API allows any developer to use content from The Gita in their apps.
 This API is built with FastAPI which is based on (and fully compatible with) the open standards for APIs: OpenAPI (previously known as Swagger) and JSON Schema.
 
 Documentation for this API is availaible in two interactive formats:
