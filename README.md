@@ -1,4 +1,3 @@
-<!-- markdownlint-disable -->
 <p align="center">
   <a href="https://bhagavadgita.io">
     <img src="https://raw.githubusercontent.com/gita/bhagavad-gita-api/main/.github/gita.png" alt="Logo" width="300">
@@ -7,7 +6,7 @@
   <h3 align="center">Bhagavad Gita API</h3>
 
   <p align="center">
-    Code for the BhagavadGita.io API, which is an app built for Gita readers by Gita readers.
+    The Bhagavad Gita API is a tool created by Gita enthusiasts for Gita enthusiasts. It provides access to the content of the Bhagavad Gita for developers to integrate into their applications.
     <br />
     <br />
     <img alt="GitHub issues" src="https://img.shields.io/github/issues/gita/bhagavad-gita-api">
@@ -23,103 +22,79 @@
 
 ## Usage
 
-The Bhagavad Gita API allows any developer to use content from Gita in their apps.
-This API is built with FastAPI which is based on (and fully compatible with) the open standards for APIs: OpenAPI (previously known as Swagger) and JSON Schema.
+The Bhagavad Gita API allows any developer to incorporate Gita content into their applications. This API is powered by FastAPI, which adheres to open standards for APIs such as OpenAPI (formerly known as Swagger) and JSON Schema.
 
-Documentation for this API is availaible in two interactive formats:
+You can access the API documentation in two interactive formats:
 - [Swagger UI](https://api.bhagavadgita.io/docs)
 - [Redoc](https://api.bhagavadgita.io/redoc)
 
-If you are interested in using this API for your application, please
-register an account at
-[RapidAPI](https://rapidapi.com/bhagavad-gita-bhagavad-gita-default/api/bhagavad-gita3)
-where you'll get both the credentials as well as sample code in your language of
-choice. The API is 100% FREE to use.
+If you're interested in using this API for your application, please register an account at [RapidAPI](https://rapidapi.com/bhagavad-gita-bhagavad-gita-default/api/bhagavad-gita3). You'll get both the necessary credentials and sample code in your preferred programming language. The API is completely free to use.
 
 ## Projects
 
-Here is a list of interesting projects using this API.
+Here is a list of interesting projects that utilize this API.
 
 - [BhagavadGita.io](https://bhagavadgita.io)
 - [Android App](https://play.google.com/store/apps/details?id=com.hanuman.bhagavadgita)
 
-Have you build something with this API ? Open a "Show and tell" discussion. The maintainers will feature your project on the README if they find it interesting.
+Have you built something with this API? Feel free to start a "Show and tell" discussion. The maintainers may feature your project on the README if they find it intriguing.
 
 ## Self Hosting
-<!-- markdownlint-enable -->
 
-The official API is free to use for all.
-But If you wish you can self host anywhere you want.
+The official API is open for all to use. However, if you prefer, you can self-host it wherever you like.
 
-If you want to deploy your own instance,You can deploy
-the API server on your system or VPS.
+To deploy your own instance of the API server, you have two options:
 
-- Using [`pipx`](https://pypa.github.io/pipx/installation/)
-  > **Note** If you dont have `pipx`, just `pip install pipx`
+1. Using [`pipx`](https://pypa.github.io/pipx/installation/):
+    > **Note**: If you don't have `pipx`, simply install it with `pip install pipx`.
 
     ```shell
     pipx run bhagavad-gita-api
     ```
 
-- Or using [`docker`](https://www.docker.com/)
+2. Or using [`docker`](https://www.docker.com/):
 
     ```shell
     docker run -it -p 8081:8081 --env-file=.env bhagavadgita/bhagavad-gita-api
     ```
 
-<!-- markdownlint-disable -->
-Now open http://localhost:8081/docs to see docs.
-To stop the server press <kbd>Ctrl</kbd> + <kbd>C</kbd> on your keyboard.
-<!-- markdownlint-enable -->
+Now, open http://localhost:8081/docs in your web browser to access the API documentation. To stop the server, press <kbd>Ctrl</kbd> + <kbd>C</kbd> on your keyboard.
 
-By default an in-memory SQLite database is used.
-But you configure to use any SQL database of your choice.
-The official version uses PostgreSQL.
+By default, the API uses an in-memory SQLite database, but you can configure it to use any SQL database of your choice. The official version employs PostgreSQL.
 
-Looking to deploy on a cloud platform ?
-We have detailed docs to deploy to the following platforms:
-
+If you're looking to deploy on a cloud platform, we have detailed documentation for deployment on the following platforms:
 - [Heroku](https://github.com/gita/bhagavad-gita-api/wiki/Heroku)
 - [Deta](https://github.com/gita/bhagavad-gita-api/wiki/Deta)
 - [Digital Ocean](https://github.com/gita/bhagavad-gita-api/wiki/Digial-Ocean)
 
 ## Configuration
 
-Here is the list of supported environment variables.
+Here is the list of supported environment variables:
 
-<!-- markdownlint-disable -->
 | Name                      | Description                           | Default     |
 | ------------------------- | ------------------------------------- | ----------- |
 | `TESTER_API_KEY`          | The API key for testing.              | `None`      |
-| `SQLALCHEMY_DATABASE_URI` | The DSN for your database connection. | `sqlite://` (in memory SQLite db)|
-<!-- markdownlint-enable -->
+| `SQLALCHEMY_DATABASE_URI` | The Data Source Name (DSN) for your database connection. | `sqlite://` (in-memory SQLite database) |
 
-If you want to configure your deployment even more,
-then please take a look at module [`config.py`](bhagavad_gita_api/config.py).
+If you want to configure your deployment further, please refer to the [`config.py`](bhagavad_gita_api/config.py) module.
 
-To set the environment variables, you may simply use a `.env` file where you
-specify the values in the format of `KEY=VALUE`.
+To set the environment variables, you can use a `.env` file where you specify the values in the format of `KEY=VALUE`.
 
 ## Development
 
-Feel free to use the [issue tracker](https://github.com/gita/bhagavad-gita-api/issues)
-for bugs and feature requests.
+Feel free to use the [issue tracker](https://github.com/gita/bhagavad-gita-api/issues) for reporting bugs and suggesting new features.
 
-Looking to contribute code ? PRs are most welcome!
-To get started with developing this API, please read the [contributing guide](.github/CONTRIBUTING.md).
+If you want to contribute code, pull requests are more than welcome! To get started with developing for this API, please read the [contributing guide](.github/CONTRIBUTING.md).
 
 ## Community
 
-Join the [Discord chat server](https://discord.gg/gX8dstApZX) and
-hang out with others in the community.
+Join the [Discord chat server](https://discord.gg/gX8dstApZX) to interact with others in the community.
 
-You can also use [GitHub Discussions](https://github.com/gita/bhagavad-gita-api/discussions)
-to ask questions or tell us about
-projects you have built using this API.
+You can also use [GitHub Discussions](https://github.com/gita/bhagavad-gita-api/discussions) to ask questions or showcase projects you've built using this API.
 
 ## Contributors ✨
 
-Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
+A big thank you to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore-start -->
@@ -141,5 +116,4 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
-This project follows the [all-contributors](https://github.com/all-contributors/all-contributors)
-specification. Contributions of any kind welcome!
+This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. We welcome contributions of all kinds!
