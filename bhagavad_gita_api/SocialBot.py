@@ -34,7 +34,6 @@ class SocialBot:
         self.create_image_post(text=self.translation_english)
 
     def create_image_post(self, text):
-
         """
         using pillow to add text on an image template, adjusting font
         size and line width to avoid overflows
@@ -113,7 +112,6 @@ class SocialBot:
             return e
 
     def post_on_instagram(self):
-
         # remove cookie if exists, package throws error on expired cookie
         if os.path.exists("cookie_iiradhakrishnaii.bot"):
             os.remove("cookie_iiradhakrishnaii.bot")

@@ -47,7 +47,6 @@ class GitaVerseModel(SQLAlchemyObjectType):
         # filtering Pending
 
     def resolve_translations(parent, info, **kwargs):
-
         if parent.id:
             verse_id = parent.id
         else:
@@ -64,7 +63,6 @@ class GitaVerseModel(SQLAlchemyObjectType):
             )[0]
 
         if "limit" in kwargs.keys():
-
             query = (
                 GitaTranslationModel.get_query(info)
                 .filter(GitaTranslation.verse_id == verse_id)
@@ -111,7 +109,6 @@ class GitaVerseModel(SQLAlchemyObjectType):
         )[0]
 
         if "limit" in kwargs.keys():
-
             query = (
                 GitaCommentryModel.get_query(info)
                 .filter(GitaCommentary.verse_id == verse_id)
@@ -146,7 +143,6 @@ class GitaVerseModel(SQLAlchemyObjectType):
 
 
 class GitaChapterModel(SQLAlchemyObjectType):
-
     verses = List(
         GitaVerseModel,
         verse_number=Int(),
@@ -160,7 +156,6 @@ class GitaChapterModel(SQLAlchemyObjectType):
         exclude_fields = ("verses",)
 
     def resolve_verses(parent, info, **kwargs):
-
         if "limit" in kwargs.keys():
             query = (
                 GitaVerseModel.get_query(info)
@@ -209,7 +204,6 @@ class Query(ObjectType):
 
     @staticmethod
     async def resolve_chapters(self, info, **kwargs):
-
         if "chapter_number" in kwargs.keys():
             query = GitaChapterModel.get_query(info).filter(
                 GitaChapter.chapter_number == kwargs.get("chapter_number")
@@ -217,7 +211,6 @@ class Query(ObjectType):
         elif "limit" in kwargs.keys():
             query = GitaChapterModel.get_query(info).limit(kwargs.get("limit"))
         else:
-
             query = GitaChapterModel.get_query(info)  # SQLAlchemy query
 
         if "skip" in kwargs.keys():
@@ -230,7 +223,6 @@ class Query(ObjectType):
 
     @staticmethod
     async def resolve_verses(self, info, **kwargs):
-
         if "verse_number" in kwargs.keys():
             query = GitaVerseModel.get_query(info).filter(
                 GitaVerse.verse_number == kwargs.get("verse_number")
