@@ -1,19 +1,19 @@
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.0.1
+    rev: v4.5.0
     hooks:
       - id: trailing-whitespace
       - id: end-of-file-fixer
       - id: debug-statements
 
   - repo: https://github.com/myint/autoflake
-    rev: v1.4
+    rev: v2.2.1
     hooks:
       - id: autoflake
         args: ['--in-place', '--remove-unused-variable', '--ignore-init-module-imports', '--remove-all-unused-imports']
 
   - repo: https://github.com/asottile/pyupgrade
-    rev: v2.19.4
+    rev: v3.15.0
     hooks:
       - id: pyupgrade
         args: ['--py3-plus']
@@ -24,12 +24,12 @@ repos:
       - id: seed-isort-config
 
   - repo: https://github.com/pre-commit/mirrors-isort
-    rev: v5.9.1
+    rev: v5.10.1
     hooks:
       - id: isort
 
   - repo: https://github.com/ambv/black
-    rev: 22.3.0
+    rev: 23.10.0
     hooks:
       - id: black
         language_version: python3
@@ -44,7 +44,7 @@ repos:
         exclude: run.py
 
   - repo: https://github.com/igorshubovych/markdownlint-cli
-    rev: v0.27.1
+    rev: v0.37.0
     hooks:
       - id: markdownlint
         args: [-s, .markdownlint.rb]

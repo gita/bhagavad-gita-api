@@ -35,7 +35,6 @@ async def post_instagram(db: Session = Depends(deps.get_db)):
         )
 
         if verse:
-
             # CALL INSTAGRAM POSTING FUNCTION HERE
             translations = db.query(models.GitaTranslation).filter(
                 models.GitaTranslation.verse_id == verse.id

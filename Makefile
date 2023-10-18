@@ -40,3 +40,6 @@ docker-release: docker
 	@docker push -a $(DOCKER_REPO)
 
 release: pypi docker-release
+
+test:
+	@poetry run pytest

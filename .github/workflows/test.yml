@@ -1,0 +1,34 @@
+name: Test
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+    build:
+        name: Build and Test
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Github Action Setup
+              uses: actions/checkout@v3
+
+            - name: Python Setup
+              uses: actions/setup-python@v4
+              with:
+                python-version: '3.8.18'
+
+            - name: Install Poetry
+              uses: snok/install-poetry@v1
+
+            - name: Install dependencies with poetry
+              run: |
+                poetry install --only main
+
+            - name: Build
+              run: |
+                poetry build
+
+            - name: Test Run
+              run: |
+                make test

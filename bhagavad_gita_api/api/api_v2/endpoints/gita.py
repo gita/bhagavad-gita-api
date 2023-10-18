@@ -141,7 +141,6 @@ async def get_particular_verse_from_chapter(
 
 @router.post("/set-daily-verse/", tags=["verses"])
 async def set_daily_verse(db: Session = Depends(deps.get_db)):
-
     verse_order = random.randint(1, 700)
 
     verse = (
