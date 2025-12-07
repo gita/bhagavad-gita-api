@@ -1,4 +1,4 @@
-FROM python:3.9
+FROM python:3.14.1
 
 ENV VENV_PATH="/venv"
 ENV PATH="$VENV_PATH/bin:$PATH"
